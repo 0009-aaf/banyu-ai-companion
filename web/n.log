@@ -1,15 +1,15 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 640ms
-✓ Running next.config.ts took 183ms
+✓ Ready in 589ms
+✓ Running next.config.ts took 155ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET / 307 in 1659ms (next.js: 1409ms, application-code: 250ms)
- GET /chat 200 in 954ms (next.js: 856ms, application-code: 99ms)
- GET /register 200 in 517ms (next.js: 409ms, application-code: 108ms)
- GET /chat 200 in 22ms (next.js: 5ms, application-code: 17ms)
- GET /settings 200 in 1385ms (next.js: 1192ms, application-code: 193ms)
- GET /settings/memory 200 in 1591ms (next.js: 1522ms, application-code: 69ms)
- GET /settings 200 in 198ms (next.js: 11ms, application-code: 187ms)
+ GET / 307 in 1831ms (next.js: 1532ms, application-code: 300ms)
+ GET /chat 200 in 1125ms (next.js: 1026ms, application-code: 99ms)
+ GET /register 200 in 473ms (next.js: 354ms, application-code: 119ms)
+ GET /chat 200 in 28ms (next.js: 6ms, application-code: 22ms)
+ GET /chat 200 in 47ms (next.js: 4ms, application-code: 43ms)
+ GET /chat/f3717a1c-3d80-4167-8a3d-a2306ae8ddab 200 in 1075ms (next.js: 1030ms, application-code: 44ms)
+ GET /chat/08af0992-9c90-45e9-b24f-37bb466f87a5 200 in 1113ms (next.js: 1067ms, application-code: 46ms)
 [?25h

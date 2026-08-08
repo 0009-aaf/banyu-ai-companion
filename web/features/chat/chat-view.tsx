@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { MessageBubble } from "./message-bubble";
 import { streamChat } from "./stream";
 import { useAuthStore } from "@/lib/store";
+import { VoiceInput, isASRSupported } from "@/features/voice/voice-input";
+import { VoiceOutput, isTTSSupported } from "@/features/voice/voice-output";
+import { VoiceToggle } from "@/features/voice/voice-toggle";
 
 interface ChatMessage {
   id?: string;
@@ -21,13 +24,31 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [listening, setListening] = useState(false);
   const currentProvider = useAuthStore((s) => s.currentProvider);
   const currentModel = useAuthStore((s) => s.currentModel);
+  const voiceEnabled = useAuthStore((s) => s.voiceEnabled);
   const endRef = useRef<HTMLDivElement>(null);
+  const voiceInputRef = useRef<VoiceInput | null>(null);
+  const voiceOutputRef = useRef<VoiceOutput | null>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    if (isASRSupported()) {
+      voiceInputRef.current = new VoiceInput();
+    }
+    if (isTTSSupported()) {
+      voiceOutputRef.current = new VoiceOutput();
+    }
+    return () => {
+      voiceInputRef.current?.stop();
+      voiceOutputRef.current?.stop();
+    };
+  }, []);
 
   async function handleSend() {
     const content = input.trim();
@@ -71,6 +92,15 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onDone: () => {
         setStreaming(false);
+        if (voiceEnabled) {
+          setMessages((prev) => {
+            const last = prev[prev.length - 1];
+            if (last && last.role === "assistant" && last.content) {
+              voiceOutputRef.current?.speak(last.content);
+            }
+            return prev;
+          });
+        }
       },
     });
   }
@@ -79,6 +109,29 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
+    }
+  }
+
+  function handleVoiceToggle() {
+    if (voiceMode && listening) {
+      voiceInputRef.current?.stop();
+      setListening(false);
+    } else {
+      setVoiceMode(true);
+      setInput("");
+      setListening(true);
+      voiceInputRef.current?.start({
+        onInterim: (text) => setInput(text),
+        onFinal: (text) => {
+          setInput((prev) => (prev ? prev + text : text));
+          setListening(false);
+        },
+        onError: (msg) => {
+          setError(msg);
+          setListening(false);
+        },
+        onEnd: () => setListening(false),
+      });
     }
   }
 
@@ -99,12 +152,19 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       {error && <p className="px-4 text-sm text-red-500">{error}</p>}
       <div className="border-t border-neutral-200 bg-white p-3">
         <div className="flex gap-2">
+          {isASRSupported() && (
+            <VoiceToggle
+              voiceMode={voiceMode}
+              listening={listening}
+              onToggle={handleVoiceToggle}
+            />
+          )}
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={1}
-            placeholder="说点什么..."
+            placeholder={voiceMode ? (listening ? "正在听..." : "点击语音按钮说话") : "说点什么..."}
             disabled={streaming}
             className="flex-1 resize-none rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-300"
           />
