@@ -76,3 +76,4 @@ Import trace for requested module:
  GET /diary 200 in 310ms (next.js: 258ms, application-code: 51ms)
  GET /settings/notifications 200 in 426ms (next.js: 375ms, application-code: 51ms)
  GET /settings/memory 200 in 404ms (next.js: 352ms, application-code: 52ms)
+[?25h
