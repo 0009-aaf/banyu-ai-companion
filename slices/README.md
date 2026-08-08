@@ -39,7 +39,7 @@ graph LR
 | 007 | voice | 004 | ✅ 完成 | | slice/007-voice |
 | 008 | diary | 001, 005 | ✅ 完成 | | slice/008-diary |
 | 009 | emotion | 004, 006 | ✅ 完成 | | slice/009-emotion |
-| 010 | ui-redesign | 001-009 | spec 就绪 | | slice/010-ui-redesign |
+| 010 | ui-redesign | 001-009 | ✅ 完成 | | slice/010-ui-redesign |
 | 011 | avatar-upload | 010 | spec 就绪 | | slice/011-avatar-upload |
 | 012 | model-filter | 无 | spec 就绪 | | slice/012-model-filter |
 | 013 | voice-continuous | 010 | spec 就绪 | | slice/013-voice-continuous |
