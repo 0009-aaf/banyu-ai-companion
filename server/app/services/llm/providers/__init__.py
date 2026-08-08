@@ -11,7 +11,15 @@ PROVIDERS: dict[str, OpenAiCompatProvider] = {
     "volc": OpenAiCompatProvider(
         "https://ark.cn-beijing.volces.com/api/coding/v3",
         "volc",
-        fixed_models=["deepseek-v4-flash"],
+        fixed_models=[
+            "deepseek-v4-flash-260425",
+            "deepseek-v4-flash-ga-260731",
+            "deepseek-v4-pro-260425",
+            "kimi-k2-250905",
+            "kimi-k2-250711",
+            "kimi-k2-thinking-251104",
+            "glm-5-2-260617",
+        ],
     ),
     "qwen": OpenAiCompatProvider("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen"),
     "deepseek": OpenAiCompatProvider("https://api.deepseek.com/v1", "deepseek"),
