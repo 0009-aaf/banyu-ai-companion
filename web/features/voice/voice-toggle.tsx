@@ -22,7 +22,7 @@ export function VoiceToggle({ voiceMode, onToggle, listening }: VoiceToggleProps
       }`}
       title={voiceMode ? "切换到文字输入" : "切换到语音输入"}
     >
-      {listening ? "听中" : voiceMode ? "语音" : "文字"}
+      {listening ? "听中" : voiceMode ? "文字" : "语音"}
     </button>
   );
 }

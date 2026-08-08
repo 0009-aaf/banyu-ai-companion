@@ -29,6 +29,16 @@ export class VoiceOutput {
     utter.rate = 1.0;
     utter.pitch = 1.0;
     utter.onend = () => onDone?.();
+    utter.onerror = () => onDone?.();
+    // Chrome 需要先确保声音已加载
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.addEventListener(
+        "voiceschanged",
+        () => window.speechSynthesis.speak(utter),
+        { once: true }
+      );
+      return;
+    }
     window.speechSynthesis.speak(utter);
   }
 

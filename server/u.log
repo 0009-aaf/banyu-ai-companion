@@ -169,3 +169,7 @@ INFO:     127.0.0.1:58113 - "GET /api/chat/conversations/937ade7e-4920-4a37-9805
 INFO:     127.0.0.1:58113 - "GET /api/chat/conversations/937ade7e-4920-4a37-9805-6ff971400f43/messages HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58113 - "GET /api/chat/conversations HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58113 - "GET /api/chat/conversations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62164 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62164 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50984 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50984 - "GET /api/llm/models/volc HTTP/1.1" 200 OK

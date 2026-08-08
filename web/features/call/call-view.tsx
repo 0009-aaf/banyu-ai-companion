@@ -31,6 +31,7 @@ export function CallView({ convId }: { convId: string }) {
   const voiceOutputRef = useRef<VoiceOutput | null>(null);
   const callActiveRef = useRef(true);
   const lastAssistantRef = useRef("");
+  const speakingRef = useRef(false);
 
   useEffect(() => {
     (async () => {
@@ -67,7 +68,7 @@ export function CallView({ convId }: { convId: string }) {
 
   function startListening() {
     if (!callActiveRef.current || !voiceInputRef.current) return;
-    if (speaking) return;
+    if (speakingRef.current) return;
     setListening(true);
     voiceInputRef.current.start({
       onInterim: () => {},
@@ -86,7 +87,7 @@ export function CallView({ convId }: { convId: string }) {
       },
       onEnd: () => {
         setListening(false);
-        if (callActiveRef.current && !speaking) {
+        if (callActiveRef.current && !speakingRef.current) {
           setTimeout(() => startListening(), 500);
         }
       },
@@ -112,8 +113,10 @@ export function CallView({ convId }: { convId: string }) {
       },
       onDone: () => {
         if (voiceEnabled && lastAssistantRef.current && voiceOutputRef.current) {
+          speakingRef.current = true;
           setSpeaking(true);
           voiceOutputRef.current.speak(lastAssistantRef.current, () => {
+            speakingRef.current = false;
             setSpeaking(false);
             setLastReply("");
             if (callActiveRef.current) startListening();
