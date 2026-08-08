@@ -26,6 +26,7 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   const [error, setError] = useState<string | null>(null);
   const [voiceMode, setVoiceMode] = useState(false);
   const [listening, setListening] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
   const currentProvider = useAuthStore((s) => s.currentProvider);
   const currentModel = useAuthStore((s) => s.currentModel);
   const voiceEnabled = useAuthStore((s) => s.voiceEnabled);
@@ -52,17 +53,14 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     };
   }, []);
 
-  async function handleSend() {
-    const content = input.trim();
+  async function sendContent(content: string) {
     if (!content || streaming) return;
     if (!currentProvider || !currentModel) {
       setError("请先在设置页选择模型");
       return;
     }
     setError(null);
-    setInput("");
     lastAssistantRef.current = "";
-    // 乐观加入用户消息 + 空 assistant 消息（流式拼接，稳定 key）
     const userKey = `local-${msgIdRef.current++}`;
     const assistantKey = `local-${msgIdRef.current++}`;
     setMessages((prev) => [
@@ -86,7 +84,6 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onError: (err) => {
         setError(err);
-        // 移除空 assistant 消息
         setMessages((prev) => {
           const last = prev[prev.length - 1];
           if (last && last.role === "assistant" && !last.content) {
@@ -98,12 +95,21 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onDone: () => {
         setStreaming(false);
-        // TTS 移出 setState updater，避免 StrictMode 重复触发
         if (voiceEnabled && lastAssistantRef.current) {
-          voiceOutputRef.current?.speak(lastAssistantRef.current);
+          setSpeaking(true);
+          voiceOutputRef.current?.speak(lastAssistantRef.current, () => {
+            setSpeaking(false);
+          });
         }
       },
     });
+  }
+
+  async function handleSend() {
+    const content = input.trim();
+    if (!content || streaming) return;
+    setInput("");
+    await sendContent(content);
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -114,25 +120,35 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   }
 
   function handleVoiceToggle() {
-    if (voiceMode && listening) {
+    setVoiceMode(!voiceMode);
+    setListening(false);
+    voiceInputRef.current?.stop();
+  }
+
+  function handlePressStart() {
+    if (streaming || speaking) return;
+    setError(null);
+    setListening(true);
+    voiceInputRef.current?.start({
+      onInterim: () => {},
+      onFinal: (text) => {
+        setListening(false);
+        if (text.trim()) {
+          sendContent(text.trim());
+        }
+      },
+      onError: (msg) => {
+        setError(msg);
+        setListening(false);
+      },
+      onEnd: () => setListening(false),
+    });
+  }
+
+  function handlePressEnd() {
+    if (listening) {
       voiceInputRef.current?.stop();
       setListening(false);
-    } else {
-      setVoiceMode(true);
-      setInput("");
-      setListening(true);
-      voiceInputRef.current?.start({
-        onInterim: (text) => setInput(text),
-        onFinal: (text) => {
-          setInput((prev) => (prev ? prev + text : text));
-          setListening(false);
-        },
-        onError: (msg) => {
-          setError(msg);
-          setListening(false);
-        },
-        onEnd: () => setListening(false),
-      });
     }
   }
 
@@ -142,9 +158,7 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
         {messages.length === 0 ? (
           <div className="mt-20 flex flex-col items-center gap-3 text-center">
             <span className="text-5xl">💬</span>
-            <p className="text-sm text-white/40">
-              开始和角色聊聊吧
-            </p>
+            <p className="text-sm text-white/40">开始和角色聊聊吧</p>
           </div>
         ) : (
           messages.map((m, i) => (
@@ -155,31 +169,60 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       </div>
       {error && <p className="px-4 text-sm text-red-400">{error}</p>}
       <div className="border-t border-white/10 glass p-3">
-        <div className="flex gap-2">
-          {isASRSupported() && (
+        {voiceMode ? (
+          <div className="flex gap-2">
+            <button
+              onMouseDown={handlePressStart}
+              onMouseUp={handlePressEnd}
+              onTouchStart={(e) => {
+                e.preventDefault();
+                handlePressStart();
+              }}
+              onTouchEnd={handlePressEnd}
+              disabled={streaming || speaking}
+              className={`flex-1 rounded-lg py-3 text-sm font-medium transition select-none ${
+                listening
+                  ? "bg-red-500 text-white animate-pulse"
+                  : speaking
+                    ? "bg-[#f0c958]/30 text-[#f0c958]"
+                    : "bg-[#f0c958] text-[#0a0a1a] active:scale-[0.98]"
+              }`}
+            >
+              {listening ? "正在听... 松开发送" : speaking ? "角色正在说话..." : "按住说话"}
+            </button>
             <VoiceToggle
               voiceMode={voiceMode}
               listening={listening}
               onToggle={handleVoiceToggle}
             />
-          )}
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            rows={1}
-            placeholder={voiceMode ? (listening ? "正在听..." : "点击语音按钮说话") : "说点什么..."}
-            disabled={streaming}
-            className="flex-1 resize-none rounded-lg border border-white/10 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#f0c958]/40"
-          />
-          <button
-            onClick={handleSend}
-            disabled={streaming || !input.trim()}
-            className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-white disabled:opacity-50"
-          >
-            {streaming ? "..." : "发送"}
-          </button>
-        </div>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            {isASRSupported() && (
+              <VoiceToggle
+                voiceMode={voiceMode}
+                listening={listening}
+                onToggle={handleVoiceToggle}
+              />
+            )}
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              rows={1}
+              placeholder="说点什么..."
+              disabled={streaming}
+              className="flex-1 resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-[#f0c958]/40"
+            />
+            <button
+              onClick={handleSend}
+              disabled={streaming || !input.trim()}
+              className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-[#0a0a1a] disabled:opacity-50"
+            >
+              {streaming ? "..." : "发送"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

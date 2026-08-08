@@ -18,13 +18,14 @@ export class VoiceOutput {
     return this.supported;
   }
 
-  speak(text: string): void {
+  speak(text: string, onDone?: () => void): void {
     if (!this.supported || !text) return;
     this.stop();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "zh-CN";
     utter.rate = 1.0;
     utter.pitch = 1.0;
+    utter.onend = () => onDone?.();
     window.speechSynthesis.speak(utter);
   }
 

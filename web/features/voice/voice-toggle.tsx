@@ -17,12 +17,12 @@ export function VoiceToggle({ voiceMode, onToggle, listening }: VoiceToggleProps
         listening
           ? "bg-red-500 text-white animate-pulse"
           : voiceMode
-            ? "bg-amber-500 text-white"
-            : "bg-neutral-100 text-neutral-600"
+            ? "bg-[#f0c958] text-[#0a0a1a]"
+            : "bg-white/10 text-white/60"
       }`}
       title={voiceMode ? "切换到文字输入" : "切换到语音输入"}
     >
-      {listening ? "听中..." : voiceMode ? "语音" : "文字"}
+      {listening ? "听中" : voiceMode ? "语音" : "文字"}
     </button>
   );
 }

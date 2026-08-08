@@ -1,21 +1,17 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 535ms
+✓ Ready in 530ms
 ⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
 \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
-✓ Running next.config.ts took 159ms
+✓ Running next.config.ts took 156ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.1s (next.js: 1899ms, application-code: 188ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 2.1s (next.js: 2.1s, application-code: 47ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 197ms (next.js: 57ms, application-code: 140ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 189ms (next.js: 148ms, application-code: 41ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 177ms (next.js: 100ms, application-code: 77ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 111ms (next.js: 88ms, application-code: 23ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 165ms (next.js: 83ms, application-code: 82ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 112ms (next.js: 86ms, application-code: 26ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 53ms (next.js: 24ms, application-code: 29ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 58ms (next.js: 8ms, application-code: 50ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 123ms (next.js: 30ms, application-code: 93ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 71ms (next.js: 33ms, application-code: 38ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 2.5s (next.js: 2.4s, application-code: 162ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.5s (next.js: 2.5s, application-code: 45ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 132ms (next.js: 106ms, application-code: 27ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 215ms (next.js: 116ms, application-code: 99ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 128ms (next.js: 58ms, application-code: 70ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 101ms (next.js: 78ms, application-code: 23ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 158ms (next.js: 73ms, application-code: 85ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 121ms (next.js: 88ms, application-code: 33ms)
