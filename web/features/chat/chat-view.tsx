@@ -97,9 +97,9 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onDone: () => {
         setStreaming(false);
-        if (voiceEnabled && lastAssistantRef.current) {
+        if (voiceEnabled && lastAssistantRef.current && voiceOutputRef.current) {
           setSpeaking(true);
-          voiceOutputRef.current?.speak(lastAssistantRef.current, () => {
+          voiceOutputRef.current.speak(lastAssistantRef.current, () => {
             setSpeaking(false);
           });
         }
@@ -124,7 +124,9 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   function handleVoiceToggle() {
     setVoiceMode(!voiceMode);
     setListening(false);
+    setSpeaking(false);
     voiceInputRef.current?.stop();
+    voiceOutputRef.current?.stop();
   }
 
   function handlePressStart() {

@@ -40,8 +40,8 @@ export function CallView({ convId }: { convId: string }) {
         const cid = useAuthStore.getState().currentCharacterId;
         const char = chars.find((c) => c.id === cid) ?? chars[0];
         if (char) setCharacter({ name: char.name, avatar_url: char.avatar_url });
-      } catch {
-        // ignore
+      } catch (err) {
+        console.error("获取角色信息失败:", err);
       }
     })();
   }, []);
@@ -110,9 +110,9 @@ export function CallView({ convId }: { convId: string }) {
         if (callActiveRef.current) startListening();
       },
       onDone: () => {
-        if (voiceEnabled && lastAssistantRef.current) {
+        if (voiceEnabled && lastAssistantRef.current && voiceOutputRef.current) {
           setSpeaking(true);
-          voiceOutputRef.current?.speak(lastAssistantRef.current, () => {
+          voiceOutputRef.current.speak(lastAssistantRef.current, () => {
             setSpeaking(false);
             setLastReply("");
             if (callActiveRef.current) startListening();

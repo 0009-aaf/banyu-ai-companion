@@ -28,6 +28,8 @@ async def upload_image(
     if file.content_type not in ALLOWED_TYPES:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "请上传 JPG/PNG/WebP 格式")
     content = await file.read()
+    if not content:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "图片文件为空")
     if len(content) > MAX_SIZE:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "图片大小不能超过 5MB")
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)

@@ -19,7 +19,10 @@ export class VoiceOutput {
   }
 
   speak(text: string, onDone?: () => void): void {
-    if (!this.supported || !text) return;
+    if (!this.supported || !text) {
+      onDone?.();
+      return;
+    }
     this.stop();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "zh-CN";
