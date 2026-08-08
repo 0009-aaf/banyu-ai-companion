@@ -1,4 +1,4 @@
-INFO:     127.0.0.1:51724 - "POST /api/auth/login HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51724 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54753 - "POST /api/auth/login HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54753 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51273 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51273 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62246 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62246 - "GET /api/llm/providers HTTP/1.1" 200 OK

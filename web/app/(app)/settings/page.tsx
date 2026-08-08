@@ -17,10 +17,12 @@ interface ModelsOut {
 const PROVIDER_LABELS: Record<string, string> = {
   openai: "OpenAI",
   doubao: "豆包",
-  volc: "火山引擎",
+  volc: "火山引擎 Coding",
   qwen: "通义千问",
+  "qwen-token": "千问 Token Plan",
   deepseek: "DeepSeek",
   zhipu: "智谱",
+  "zhipu-coding": "智谱 Coding Plan",
 };
 
 export default function SettingsPage() {

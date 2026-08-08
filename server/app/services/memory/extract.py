@@ -18,6 +18,9 @@ DEFAULT_EMBEDDING_MODELS: dict[str, str] = {
     "zhipu": "embedding-2",
     "doubao": "",  # 需要 endpoint ID
     "deepseek": "",  # 不支持 embedding
+    "volc": "",  # Coding Plan 不支持 embedding
+    "qwen-token": "",  # Token Plan 不支持 embedding
+    "zhipu-coding": "",  # Coding Plan 不支持 embedding
 }
 
 # 各 provider 默认 chat 模型（用于提取记忆）
@@ -25,9 +28,11 @@ DEFAULT_CHAT_MODELS: dict[str, str] = {
     "deepseek": "deepseek-chat",
     "openai": "gpt-4o-mini",
     "doubao": "doubao-pro-32k",
-    "volc": "deepseek-v4-flash",
+    "volc": "deepseek-v4-flash-260425",
     "qwen": "qwen-turbo",
     "zhipu": "glm-4-flash",
+    "qwen-token": "qwen3.6-flash",
+    "zhipu-coding": "glm-4-flash",
 }
 
 EXTRACT_PROMPT = """从以下用户消息中提取关键信息（如用户姓名、喜好、重要事件、关系等）。

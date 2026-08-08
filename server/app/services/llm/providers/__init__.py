@@ -22,8 +22,16 @@ PROVIDERS: dict[str, OpenAiCompatProvider] = {
         ],
     ),
     "qwen": OpenAiCompatProvider("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen"),
+    "qwen-token": OpenAiCompatProvider(
+        "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+        "qwen-token",
+    ),
     "deepseek": OpenAiCompatProvider("https://api.deepseek.com/v1", "deepseek"),
     "zhipu": OpenAiCompatProvider("https://open.bigmodel.cn/api/paas/v4", "zhipu"),
+    "zhipu-coding": OpenAiCompatProvider(
+        "https://open.bigmodel.cn/api/coding/paas/v4",
+        "zhipu-coding",
+    ),
 }
 
 
