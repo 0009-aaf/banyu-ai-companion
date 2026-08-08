@@ -32,11 +32,14 @@ Thumbs.db
 .idea/
 
 # Android
-android/
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/captures/
 *.apk
 *.aab
 *.keystore
-local.properties
 
 # Build
 dist/
