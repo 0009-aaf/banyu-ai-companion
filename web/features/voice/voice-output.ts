@@ -18,6 +18,10 @@ export class VoiceOutput {
     return this.supported;
   }
 
+  hasVoices(): boolean {
+    return this.supported && window.speechSynthesis.getVoices().length > 0;
+  }
+
   speak(text: string, onDone?: () => void): void {
     if (!this.supported || !text) {
       onDone?.();

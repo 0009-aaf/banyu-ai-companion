@@ -22,6 +22,7 @@ export function CallView({ convId }: { convId: string }) {
   const [character, setCharacter] = useState<CharacterInfo | null>(null);
   const [lastReply, setLastReply] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [textInput, setTextInput] = useState("");
 
   const currentProvider = useAuthStore((s) => s.currentProvider);
   const currentModel = useAuthStore((s) => s.currentModel);
@@ -112,17 +113,22 @@ export function CallView({ convId }: { convId: string }) {
         if (callActiveRef.current) startListening();
       },
       onDone: () => {
-        if (voiceEnabled && lastAssistantRef.current && voiceOutputRef.current) {
+        const canSpeak = voiceEnabled && lastAssistantRef.current && voiceOutputRef.current?.hasVoices();
+        if (canSpeak) {
           speakingRef.current = true;
           setSpeaking(true);
-          voiceOutputRef.current.speak(lastAssistantRef.current, () => {
+          voiceOutputRef.current!.speak(lastAssistantRef.current, () => {
             speakingRef.current = false;
             setSpeaking(false);
             setLastReply("");
             if (callActiveRef.current) startListening();
           });
         } else {
-          if (callActiveRef.current) startListening();
+          // 无 TTS 声音引擎，保留文字回复 3 秒后继续
+          setTimeout(() => {
+            setLastReply("");
+            if (callActiveRef.current) startListening();
+          }, 3000);
         }
       },
     });
@@ -174,7 +180,34 @@ export function CallView({ convId }: { convId: string }) {
         {error && <p className="text-sm text-red-400">{error}</p>}
       </div>
 
-      <div className="relative z-10 pb-12">
+      <div className="relative z-10 flex w-full max-w-[80%] flex-col items-center gap-3 pb-12">
+        <div className="flex w-full gap-2">
+          <input
+            value={textInput}
+            onChange={(e) => setTextInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && textInput.trim() && !speaking) {
+                sendMessage(textInput.trim());
+                setTextInput("");
+              }
+            }}
+            placeholder="打字输入..."
+            disabled={speaking}
+            className="flex-1 rounded-lg glass px-3 py-2 text-sm text-white outline-none disabled:opacity-50"
+          />
+          <button
+            onClick={() => {
+              if (textInput.trim() && !speaking) {
+                sendMessage(textInput.trim());
+                setTextInput("");
+              }
+            }}
+            disabled={speaking || !textInput.trim()}
+            className="rounded-lg bg-[#f0c958] px-3 py-2 text-sm text-[#0a0a1a] disabled:opacity-50"
+          >
+            发送
+          </button>
+        </div>
         <button
           onClick={handleHangup}
           className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500 text-white shadow-lg shadow-red-500/30 active:scale-95"
