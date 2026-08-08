@@ -79,4 +79,7 @@ async def get_models(
         raise HTTPException(status.HTTP_502_BAD_GATEWAY, "网络请求失败，请检查网络")
     except ValueError as e:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, str(e))
+    from app.services.llm.filter import filter_chat_models
+
+    models = filter_chat_models(models)
     return ModelsOut(provider=provider, models=models)
