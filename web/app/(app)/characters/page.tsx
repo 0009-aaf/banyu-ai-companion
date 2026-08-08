@@ -76,7 +76,7 @@ export default function CharactersPage() {
           {characters.map((c) => (
             <div
               key={c.id}
-              className={`rounded-lg bg-white p-4 ${
+              className={`rounded-xl bg-white p-4 shadow-sm transition active:scale-[0.98] ${
                 currentCharacterId === c.id ? "ring-2 ring-amber-400" : ""
               }`}
             >
@@ -84,8 +84,13 @@ export default function CharactersPage() {
                 onClick={() => setCurrentCharacter(c.id)}
                 className="flex-1 text-left"
               >
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{c.name}</span>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-lg font-medium text-amber-700">
+                    {c.name.charAt(0)}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{c.name}</span>
                   {c.is_default && (
                     <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-700">
                       默认
@@ -96,6 +101,8 @@ export default function CharactersPage() {
                   )}
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm text-neutral-500">{c.persona}</p>
+                  </div>
+                </div>
               </button>
               <div className="mt-3 flex gap-3 text-sm">
                 <button

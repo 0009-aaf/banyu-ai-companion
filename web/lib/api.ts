@@ -14,7 +14,7 @@ function getToken(): string | null {
   return localStorage.getItem("banyu-auth") ? readTokenFromStorage() : null;
 }
 
-function readTokenFromStorage(): string | null {
+export function readTokenFromStorage(): string | null {
   const raw = localStorage.getItem("banyu-auth");
   if (!raw) return null;
   try {
@@ -44,7 +44,14 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   const text = await res.text();
-  const data: unknown = text ? JSON.parse(text) : null;
+  let data: unknown = null;
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = null;
+    }
+  }
 
   if (!res.ok) {
     const msg = extractDetail(data) ?? `请求失败 (${res.status})`;

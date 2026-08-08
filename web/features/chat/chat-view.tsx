@@ -32,6 +32,8 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   const endRef = useRef<HTMLDivElement>(null);
   const voiceInputRef = useRef<VoiceInput | null>(null);
   const voiceOutputRef = useRef<VoiceOutput | null>(null);
+  const msgIdRef = useRef(0);
+  const lastAssistantRef = useRef<string>("");
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -59,16 +61,20 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     }
     setError(null);
     setInput("");
-    // 乐观加入用户消息 + 空 assistant 消息（流式拼接）
+    lastAssistantRef.current = "";
+    // 乐观加入用户消息 + 空 assistant 消息（流式拼接，稳定 key）
+    const userKey = `local-${msgIdRef.current++}`;
+    const assistantKey = `local-${msgIdRef.current++}`;
     setMessages((prev) => [
       ...prev,
-      { role: "user", content },
-      { role: "assistant", content: "" },
+      { id: userKey, role: "user", content },
+      { id: assistantKey, role: "assistant", content: "" },
     ]);
     setStreaming(true);
 
     await streamChat(convId, content, currentProvider, currentModel, {
       onToken: (token) => {
+        lastAssistantRef.current += token;
         setMessages((prev) => {
           const next = [...prev];
           const last = next[next.length - 1];
@@ -92,14 +98,9 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onDone: () => {
         setStreaming(false);
-        if (voiceEnabled) {
-          setMessages((prev) => {
-            const last = prev[prev.length - 1];
-            if (last && last.role === "assistant" && last.content) {
-              voiceOutputRef.current?.speak(last.content);
-            }
-            return prev;
-          });
+        // TTS 移出 setState updater，避免 StrictMode 重复触发
+        if (voiceEnabled && lastAssistantRef.current) {
+          voiceOutputRef.current?.speak(lastAssistantRef.current);
         }
       },
     });
@@ -139,12 +140,15 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     <div className="flex h-[calc(100vh-49px)] flex-col">
       <div className="flex-1 overflow-y-auto bg-neutral-50 px-4 py-4">
         {messages.length === 0 ? (
-          <p className="mt-20 text-center text-sm text-neutral-400">
-            开始和角色聊聊吧
-          </p>
+          <div className="mt-20 flex flex-col items-center gap-3 text-center">
+            <span className="text-5xl">💬</span>
+            <p className="text-sm text-neutral-400">
+              开始和角色聊聊吧
+            </p>
+          </div>
         ) : (
           messages.map((m, i) => (
-            <MessageBubble key={i} role={m.role} content={m.content} />
+            <MessageBubble key={m.id ?? i} role={m.role} content={m.content} />
           ))
         )}
         <div ref={endRef} />

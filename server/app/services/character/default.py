@@ -24,9 +24,8 @@ DEFAULT_CHARACTER: dict = {
 
 
 async def seed_default_character(db: AsyncSession, user_id: str) -> Character:
-    """为新用户创建内置默认角色，返回创建的角色。"""
+    """为新用户创建内置默认角色。不 commit，由调用方控制事务（防孤儿账号）。"""
     character = Character(user_id=user_id, **DEFAULT_CHARACTER)
     db.add(character)
-    await db.commit()
-    await db.refresh(character)
+    await db.flush()
     return character

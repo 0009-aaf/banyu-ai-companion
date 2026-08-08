@@ -1,13 +1,78 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 569ms
-✓ Running next.config.ts took 161ms
+✓ Ready in 510ms
+⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
+\\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
+✓ Running next.config.ts took 155ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET / 307 in 1406ms (next.js: 1274ms, application-code: 132ms)
- GET /chat 200 in 638ms (next.js: 555ms, application-code: 83ms)
- GET /register 200 in 627ms (next.js: 456ms, application-code: 171ms)
- GET /chat 200 in 23ms (next.js: 5ms, application-code: 18ms)
- GET /diary 200 in 838ms (next.js: 762ms, application-code: 77ms)
-[?25h
+ GET / 307 in 1442ms (next.js: 1295ms, application-code: 147ms)
+ GET /chat 200 in 611ms (next.js: 530ms, application-code: 82ms)
+ GET /login 200 in 593ms (next.js: 479ms, application-code: 114ms)
+ GET /login 200 in 31ms (next.js: 5ms, application-code: 26ms)
+ GET /chat 200 in 35ms (next.js: 5ms, application-code: 30ms)
+ GET /login 200 in 27ms (next.js: 4ms, application-code: 23ms)
+ GET /characters 200 in 573ms (next.js: 484ms, application-code: 89ms)
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /login 200 in 20ms (next.js: 5ms, application-code: 15ms)
+ GET /settings 200 in 507ms (next.js: 424ms, application-code: 83ms)
+ GET /login 200 in 18ms (next.js: 5ms, application-code: 14ms)
+ GET /diary 200 in 881ms (next.js: 770ms, application-code: 111ms)
+ GET /login 200 in 23ms (next.js: 6ms, application-code: 17ms)
+ GET /settings/notifications 200 in 815ms (next.js: 717ms, application-code: 98ms)
+ GET /login 200 in 123ms (next.js: 11ms, application-code: 112ms)
+ GET /settings/memory 200 in 767ms (next.js: 682ms, application-code: 86ms)
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /login 200 in 38ms (next.js: 4ms, application-code: 34ms)
+ GET /login 200 in 58ms (next.js: 3ms, application-code: 55ms)
+ GET /characters 200 in 36ms (next.js: 5ms, application-code: 31ms)
+ GET /login 200 in 18ms (next.js: 3ms, application-code: 15ms)
+ GET /settings 200 in 33ms (next.js: 5ms, application-code: 28ms)
+ GET /login 200 in 18ms (next.js: 3ms, application-code: 15ms)
+ GET /diary 200 in 37ms (next.js: 5ms, application-code: 32ms)
+ GET /login 200 in 19ms (next.js: 3ms, application-code: 16ms)
+ GET /settings/notifications 200 in 30ms (next.js: 4ms, application-code: 26ms)
+ GET /login 200 in 18ms (next.js: 4ms, application-code: 14ms)
+ GET /settings/memory 200 in 28ms (next.js: 2ms, application-code: 25ms)
+ GET /login 200 in 19ms (next.js: 3ms, application-code: 15ms)
+ GET /login 200 in 29ms (next.js: 2ms, application-code: 27ms)
+ GET /chat 200 in 50ms (next.js: 12ms, application-code: 38ms)
+ GET /characters 200 in 29ms (next.js: 2ms, application-code: 27ms)
+ GET /settings 200 in 28ms (next.js: 3ms, application-code: 25ms)
+ GET /diary 200 in 34ms (next.js: 3ms, application-code: 31ms)
+ GET /settings/notifications 200 in 29ms (next.js: 3ms, application-code: 26ms)
+ GET /settings/memory 200 in 27ms (next.js: 3ms, application-code: 25ms)
+⨯ ./app/(app)/characters/page.tsx
+Error:   x Expected '</', got 'jsx text'
+     ,-[D:\learning\project\web\app\(app)\characters\page.tsx:104:1]
+ 101 |                       )}
+ 102 |                     </div>
+ 103 |                     <p className="mt-1 line-clamp-2 text-sm text-neutral-500">{c.persona}</p>
+ 104 | ,->               </button>
+ 105 | `->               <div className="mt-3 flex gap-3 text-sm">
+ 106 |                     <button
+ 107 |                       onClick={() => router.push(`/characters/${c.id}/edit`)}
+ 108 |                       className="text-amber-600"
+     `----
+
+Caused by:
+    0: failed to process js file
+    1: Syntax Error
+    at wasm.wasm.wasm_bindgen[85fad33f9d8c6813]::__wbindgen_error_new::__wbg_Error_83742b46f01ce22d externref shim (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[28637]:0x11c8461)
+    at wasm.wasm.wasm[45b31adcf0e553c2]::transform_sync (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[1167]:0x64addf)
+    at wasm.wasm.wasm_bindgen_futures[c53a1ecb256a1440]::future_to_promise::<wasm[45b31adcf0e553c2]::transform::{closure#0}>::{closure#0}::{closure#0} (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[12296]:0xf5e6aa)
+    at wasm.wasm.<wasm_bindgen_futures[c53a1ecb256a1440]::queue::Queue>::new::{closure#0} (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[8614]:0xdd9bda)
+    at wasm.wasm.wasm_bindgen[85fad33f9d8c6813]::convert::closures::_::invoke::<wasm_bindgen[85fad33f9d8c6813]::JsValue, core[de86a6c1f3de1a5b]::result::Result<(), wasm_bindgen[85fad33f9d8c6813]::JsError>, true> (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[23540]:0x117a3a0)
+    at wasm.wasm.wasm_bindgen[85fad33f9d8c6813]::convert::closures::_::invoke::<wasm_bindgen[85fad33f9d8c6813]::JsValue, core[de86a6c1f3de1a5b]::result::Result<(), wasm_bindgen[85fad33f9d8c6813]::JsError>, true> externref shim (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[28645]:0x11c853c)
+    at wasm.wasm.wasm_bindgen[85fad33f9d8c6813]::convert::closures::_::invoke::<wasm_bindgen[85fad33f9d8c6813]::JsValue, core[de86a6c1f3de1a5b]::result::Result<(), wasm_bindgen[85fad33f9d8c6813]::JsError>, true> externref shim multivalue shim (wasm://wasm/wasm.wasm-073f0cd2:wasm-function[27049]:0x11ba9b2)
+Import trace for requested module:
+./app/(app)/characters/page.tsx
+ GET /login 200 in 168ms (next.js: 69ms, application-code: 99ms)
+ GET /chat 200 in 254ms (next.js: 227ms, application-code: 27ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /characters 200 in 455ms (next.js: 373ms, application-code: 82ms)
+ GET /settings 200 in 293ms (next.js: 234ms, application-code: 59ms)
+ GET /diary 200 in 310ms (next.js: 258ms, application-code: 51ms)
+ GET /settings/notifications 200 in 426ms (next.js: 375ms, application-code: 51ms)
+ GET /settings/memory 200 in 404ms (next.js: 352ms, application-code: 52ms)

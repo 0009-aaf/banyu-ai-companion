@@ -100,14 +100,16 @@ export default function DiaryPage() {
         <p className="mb-2 text-sm font-medium">
           {todayDiary ? "编辑今日日记" : "写今日日记"}
         </p>
-        <div className="mb-3 flex gap-2">
+        <div className="mb-3 flex flex-wrap gap-2">
           {MOODS.map((m) => (
             <button
               key={m.value}
               type="button"
               onClick={() => setMood(m.value)}
-              className={`rounded-lg px-2 py-1 text-sm ${
-                mood === m.value ? "bg-amber-500 text-white" : "bg-neutral-100"
+              className={`rounded-lg px-3 py-1.5 text-sm transition ${
+                mood === m.value
+                  ? "bg-amber-500 text-white"
+                  : "bg-neutral-100 text-neutral-600"
               }`}
             >
               {m.emoji} {m.label}
@@ -155,7 +157,7 @@ export default function DiaryPage() {
               <div key={d.id} className="rounded-lg bg-white p-3">
                 <div className="mb-1 flex items-center justify-between">
                   <span className="text-sm font-medium">
-                    {moodInfo?.emoji} {new Date(d.entry_date).toLocaleDateString()}
+                    {moodInfo?.emoji} {d.entry_date}
                   </span>
                   <button
                     onClick={() => handleDelete(d.id)}

@@ -23,6 +23,11 @@ export default function NotificationsPage() {
       setPermission(Notification.permission);
     }
     registerServiceWorker();
+    // 检查是否已订阅（刷新后恢复正确状态）
+    navigator.serviceWorker?.ready
+      .then((reg) => reg.pushManager.getSubscription())
+      .then((sub) => setSubscribed(sub !== null))
+      .catch(() => {});
   }, []);
 
   async function handleSubscribe() {

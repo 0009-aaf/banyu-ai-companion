@@ -81,6 +81,7 @@ export default function SettingsPage() {
     setModels([]);
     setError(null);
     setMsg(null);
+    setCurrentLlm(provider, "");
     setLoadingModels(true);
     try {
       const data = await apiFetch<ModelsOut>(`/llm/models/${provider}`);

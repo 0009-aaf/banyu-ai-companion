@@ -3,23 +3,12 @@
  * Protected Region: 前端流式核心。
  */
 
+import { readTokenFromStorage } from "@/lib/api";
+
 interface StreamCallbacks {
   onToken: (token: string) => void;
   onError: (error: string) => void;
   onDone: () => void;
-}
-
-function readToken(): string | null {
-  if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem("banyu-auth");
-  if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw) as { state?: { token?: unknown } };
-    const token = parsed.state?.token;
-    return typeof token === "string" ? token : null;
-  } catch {
-    return null;
-  }
 }
 
 export async function streamChat(
@@ -29,7 +18,7 @@ export async function streamChat(
   model: string,
   callbacks: StreamCallbacks
 ): Promise<void> {
-  const token = readToken();
+  const token = readTokenFromStorage();
   let res: Response;
   try {
     res = await fetch(`/api/chat/conversations/${convId}/stream`, {

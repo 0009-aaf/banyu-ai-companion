@@ -7,6 +7,7 @@ SSE 事件格式：
 """
 
 import json
+import logging
 from collections.abc import AsyncIterator
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -26,6 +27,7 @@ from app.services.chat.prompt import build_messages
 from app.services.llm.providers import get_provider
 
 router = APIRouter(prefix="/chat", tags=["chat"])
+logger = logging.getLogger(__name__)
 
 
 @router.post(
@@ -110,7 +112,13 @@ async def stream_chat(
     key_row = kr.scalar_one_or_none()
     if key_row is None:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "请先在设置页配置 API key")
-    api_key = decrypt(key_row.api_key_encrypted)
+    try:
+        api_key = decrypt(key_row.api_key_encrypted)
+    except Exception:
+        logger.exception("API key 解密失败 provider=%s", payload.provider)
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "API key 解密失败，请重新配置")
+    if not api_key:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "API key 无效，请重新配置")
     provider = get_provider(payload.provider)
     if provider is None:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "不支持的 provider")
@@ -130,7 +138,7 @@ async def stream_chat(
 
         memories = await retrieve_memories(current.id, payload.content, key_row)
     except Exception:
-        pass
+        logger.exception("记忆检索失败 user=%s", current.id)
 
     llm_messages = build_messages(character, history, payload.content, memories)
 
@@ -140,9 +148,9 @@ async def stream_chat(
             async for token in provider.chat_stream(llm_messages, payload.model, api_key):
                 full.append(token)
                 yield f"data: {json.dumps({'token': token}, ensure_ascii=False)}\n\n"
-        except Exception as e:
-            # 流式异常通过 SSE error 通知前端（不吞，前端显示）
-            yield f"data: {json.dumps({'error': str(e)}, ensure_ascii=False)}\n\n"
+        except Exception:
+            logger.exception("流式生成失败 conv=%s", conv_id)
+            yield f"data: {json.dumps({'error': '模型请求失败，请稍后重试'}, ensure_ascii=False)}\n\n"
             return
         # 保存 assistant 回复（用新 session，避免原 session 已关闭）
         async with async_session() as s:
@@ -174,7 +182,7 @@ async def stream_chat(
                     )
                     await ms.commit()
         except Exception:
-            pass  # 记忆提取失败不阻断对话
+            logger.exception("记忆提取失败 conv=%s", conv_id)
 
         # 异步情绪分析 + 触发主动关心
         try:
@@ -187,7 +195,7 @@ async def stream_chat(
                 if await should_trigger(conv_id, emotion, score):
                     await trigger_care_message(current.id, conv_id, character, key_row)
         except Exception:
-            pass  # 情绪分析失败不阻断对话
+            logger.exception("情绪分析失败 conv=%s", conv_id)
 
         yield "data: [DONE]\n\n"
 

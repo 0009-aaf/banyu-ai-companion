@@ -3,6 +3,8 @@
 错误信息统一化：不泄漏是账号还是密码错误（防枚举）。
 """
 
+import logging
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,6 +17,7 @@ from app.schemas.user import TokenOut, UserLogin, UserOut, UserRegister
 from app.services.character.default import seed_default_character
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+logger = logging.getLogger(__name__)
 
 
 @router.post("/register", response_model=TokenOut, status_code=status.HTTP_201_CREATED)
@@ -28,10 +31,16 @@ async def register(payload: UserRegister, db: AsyncSession = Depends(get_db)) ->
         nickname=payload.nickname,
     )
     db.add(user)
-    await db.commit()
+    # 用户 + 默认角色同事务提交（失败回滚，避免孤儿账号）
+    try:
+        await db.flush()  # 让 user 获得 id
+        await seed_default_character(db, user.id)
+        await db.commit()
+    except Exception:
+        await db.rollback()
+        logger.exception("注册失败 email=%s", payload.email)
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "注册失败，请重试")
     await db.refresh(user)
-    # 为新用户创建内置默认角色
-    await seed_default_character(db, user.id)
     return TokenOut(access_token=create_access_token(user.id), user=UserOut.model_validate(user))
 
 
