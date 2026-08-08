@@ -1,0 +1,15 @@
+▲ Next.js 16.3.0 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.10.61:3000
+✓ Ready in 640ms
+✓ Running next.config.ts took 183ms
+  Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
+
+ GET / 307 in 1659ms (next.js: 1409ms, application-code: 250ms)
+ GET /chat 200 in 954ms (next.js: 856ms, application-code: 99ms)
+ GET /register 200 in 517ms (next.js: 409ms, application-code: 108ms)
+ GET /chat 200 in 22ms (next.js: 5ms, application-code: 17ms)
+ GET /settings 200 in 1385ms (next.js: 1192ms, application-code: 193ms)
+ GET /settings/memory 200 in 1591ms (next.js: 1522ms, application-code: 69ms)
+ GET /settings 200 in 198ms (next.js: 11ms, application-code: 187ms)
+[?25h

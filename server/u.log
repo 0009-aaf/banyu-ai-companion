@@ -1,0 +1,11 @@
+INFO:     127.0.0.1:63125 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63125 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52662 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:52662 - "GET /api/memory HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56611 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:53232 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53232 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53232 - "GET /api/memory HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53232 - "GET /api/memory HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53232 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53232 - "GET /api/llm/providers HTTP/1.1" 200 OK
