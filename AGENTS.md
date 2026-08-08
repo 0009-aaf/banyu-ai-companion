@@ -10,13 +10,14 @@
 ## 技术栈
 | 层 | 选型 |
 |----|------|
-| 前端 | Next.js 14 (App Router) + TypeScript + Tailwind + shadcn/ui + Zustand + PWA |
-| 后端 | FastAPI (Python) |
-| LLM | 多 Provider 适配层（OpenAI/豆包/通义/DeepSeek/智谱/Gemini），用户配 API key |
-| 数据库 | Postgres + pgvector |
-| 语音 | Web Speech API |
+| 前端 | Next.js 16 (App Router) + TypeScript + Tailwind 4 + Zustand + PWA |
+| 后端 | FastAPI (Python) + SQLAlchemy async + aiosqlite |
+| LLM | 多 Provider 适配层（OpenAI/豆包/火山Coding/通义/DeepSeek/智谱），用户配 API key，模型列表过滤 |
+| 语音 | Web Speech API (ASR+TTS) + 火山引擎 TTS (声音克隆) + WebSocket (实时通话) |
+| 文件存储 | 本地文件系统（server/uploads/） |
+| 数据库 | SQLite（开发）-> Postgres（生产） |
 | 主动陪伴 | APScheduler + Web Push |
-| 部署 | Vercel(web) + 云服务器(FastAPI) + Neon(PG) |
+| 部署 | 本地优先（不用云服务器）|
 
 ## 项目结构
 ```

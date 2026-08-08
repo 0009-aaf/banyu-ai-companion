@@ -1,6 +1,7 @@
-# 架构方案: 伴语 (Banyu)
+# 架构方案: 伴语 (Banyu) v2
 
-> 主动式 AI 陪伴产品。前后端分离，多 LLM Provider 适配，Postgres+pgvector 长期记忆，定时+事件双触发主动陪伴。
+> 主动式 AI 陪伴产品。v2 新增语音电话、角色形象/声音上传、二次元 UI 重做。
+> 本地优先：SQLite + 本地文件存储，不用云服务器。
 
 ---
 
@@ -8,202 +9,211 @@
 
 | 层级 | 选型 | 理由 |
 |------|------|------|
-| 前端 | Next.js 14 (App Router) + TS + Tailwind + shadcn/ui + Zustand + PWA | SSR/SSG + PWA 可安装，shadcn/ui 快速 UI，后续 Capacitor/Tauri 复用同套 Web 代码 |
-| 后端 | FastAPI (Python) | Python AI 生态顺，异步性能好，自动 OpenAPI 文档 |
-| LLM | 多 Provider 适配层（OpenAI/豆包/通义/DeepSeek/智谱/Gemini） | 用户自带 key，`/models` 聚合返回可用模型，不锁厂商 |
-| 数据库 | Postgres + pgvector | 关系数据 + 向量记忆一体，Neon/Supabase 免费起步 |
-| 语音 | Web Speech API | 浏览器原生 ASR/TTS，MVP 零成本 |
-| 主动陪伴 | APScheduler + Web Push | 后台定时调度 + 浏览器推送 |
-| 部署 | Vercel(web) + 云服务器(FastAPI) + Neon(PG) | 前端边缘部署快，后端需常驻跑调度 |
+| 前端 | Next.js 16 (App Router) + TS + Tailwind 4 + Zustand | 已有基础，App Router + PWA |
+| 后端 | FastAPI (Python) + SQLAlchemy async + aiosqlite | 已有基础，异步性能好 |
+| LLM | 多 Provider 适配层（OpenAI/豆包/火山Coding/通义/DeepSeek/智谱） | 用户自带 key，模型列表过滤 |
+| ASR | Web Speech API（浏览器内置） | 零成本，不需要后端处理音频 |
+| TTS | Web Speech API（默认）+ 火山引擎 TTS（声音克隆） | 默认零成本，声音克隆需额外配置 |
+| 实时通话 | WebSocket（FastAPI 原生支持） | 全双工通信，前端 VAD + 文字传输 |
+| 文件存储 | 本地文件系统（server/uploads/） | 本地优先，不需要 OSS |
+| 数据库 | SQLite（开发）-> Postgres（生产） | 零配置起步 |
+| 主动陪伴 | APScheduler + Web Push | 已有基础 |
 
 ---
 
-## 2. 目录分层（按功能模块）
+## 2. 目录分层（v2 新增标记 ✨）
 
 ```
 banyu/
 ├── web/                          # Next.js 前端
 │   ├── app/
-│   │   ├── (chat)/               # 对话页路由组（全屏沉浸）
-│   │   ├── characters/           # 角色管理页
-│   │   ├── diary/                # 日记页
-│   │   ├── settings/             # 设置页（key/模型/通知/记忆）
-│   │   └── api/                  # BFF 代理转 FastAPI
-│   ├── features/                 # 功能模块
-│   │   ├── chat/                 # 流式聊天 UI + Zustand 状态
+│   │   ├── (app)/                # 主应用路由组
+│   │   │   ├── chat/             # 对话页
+│   │   │   ├── call/  ✨         # 实时通话页（全屏立绘）
+│   │   │   ├── characters/       # 角色管理（含图片/语音上传）
+│   │   │   ├── diary/            # 日记页
+│   │   │   └── settings/         # 设置页
+│   │   └── (auth)/               # 登录/注册
+│   ├── features/
+│   │   ├── chat/                 # 流式聊天
+│   │   ├── voice/                # 语音输入/输出封装
+│   │   ├── call/   ✨            # 实时通话组件（VAD + WebSocket）
 │   │   ├── character/            # 角色卡组件
+│   │   ├── upload/ ✨            # 图片/语音上传组件
 │   │   ├── diary/                # 日记组件
-│   │   ├── voice/                # Web Speech 封装
-│   │   └── push/                 # Web Push 订阅
-│   ├── shared/                   # 共享 UI
-│   └── lib/                      # API client、类型、常量
+│   │   └── push/                 # Web Push
+│   └── lib/                      # API client、store、类型
 ├── server/                       # FastAPI 后端
 │   ├── app/
-│   │   ├── api/                  # 路由层（薄）
+│   │   ├── api/
 │   │   │   ├── chat.py           # 流式对话 SSE
-│   │   │   ├── characters.py     # 角色 CRUD
-│   │   │   ├── memory.py         # 记忆查看/删除
+│   │   │   ├── voice_call.py ✨  # WebSocket 语音通话
+│   │   │   ├── upload.py     ✨  # 图片/语音文件上传
+│   │   │   ├── voice.py      ✨  # 声音克隆状态查询
+│   │   │   ├── characters.py     # 角色 CRUD（增加图片/声音字段）
+│   │   │   ├── llm_config.py     # key 配置/模型列表（增加过滤）
+│   │   │   ├── memory.py         # 记忆管理
 │   │   │   ├── diary.py          # 日记 CRUD
-│   │   │   ├── llm_config.py     # key 配置/模型列表
-│   │   │   └── push.py           # Web Push 订阅
-│   │   ├── models/               # SQLAlchemy ORM
-│   │   ├── schemas/              # Pydantic schema
-│   │   ├── services/             # 业务逻辑（核心，Protected）
-│   │   │   ├── llm/              # LLM 适配层
-│   │   │   │   ├── base.py       # Provider 抽象接口
-│   │   │   │   ├── providers/    # openai/doubao/qwen/deepseek/zhipu/gemini
-│   │   │   │   └── registry.py   # /models 聚合 + key 验证
-│   │   │   ├── memory/           # 向量记忆提取/检索/注入
-│   │   │   ├── proactive/        # 主动陪伴调度
-│   │   │   ├── emotion/          # 情绪分析
-│   │   │   └── voice/            # 语音适配（预留）
+│   │   │   └── push.py           # Web Push
+│   │   ├── models/
+│   │   │   ├── character.py      # 增加 avatar_url, voice_id, voice_status
+│   │   │   └── ...               # 其他模型不变
+│   │   ├── services/
+│   │   │   ├── llm/              # LLM 适配层（增加模型过滤）
+│   │   │   ├── voice/        ✨  # 声音克隆 + TTS 服务
+│   │   │   ├── memory/           # 记忆服务
+│   │   │   ├── proactive/        # 主动陪伴
+│   │   │   └── emotion/          # 情绪分析
 │   │   ├── core/                 # 配置/鉴权/数据库/加密
-│   │   └── scheduler/            # APScheduler 入口
-│   ├── alembic/                  # 迁移
-│   └── tests/
-├── docs/                         # PRD/架构/状态
-└── references/                   # 视觉参考
+│   │   └── main.py
+│   └── uploads/              ✨  # 文件存储目录
+│       ├── avatars/              # 角色头像/立绘
+│       └── voices/               # 语音样本
 ```
 
 ---
 
-## 3. 核心数据模型
+## 3. 核心数据模型（v2 变更）
 
 ```mermaid
 erDiagram
     User ||--o{ Character : owns
     User ||--o{ Conversation : has
-    User ||--o{ Diary : writes
     User ||--o{ LlmKey : configures
-    User ||--o{ PushSubscription : subscribes
-    User ||--o{ EmotionLog : records
-    Character ||--o{ Conversation : uses
+    User ||--o{ Memory : has
+    User ||--o{ Diary : writes
+    User ||--o{ PushSubscription : has
     Conversation ||--o{ Message : contains
-    Conversation ||--o{ Memory : generates
+    Conversation }o--|| Character : uses
 
-    User {
-        uuid id PK
-        string email
-        string password_hash
-        string nickname
-        datetime created_at
-    }
     Character {
-        uuid id PK
-        uuid user_id FK
+        string id PK
+        string user_id FK
         string name
         text persona
-        string avatar_url
-        jsonb voice_config
-        jsonb proactive_config
-        boolean is_default
-    }
-    Conversation {
-        uuid id PK
-        uuid user_id FK
-        uuid character_id FK
-        string title
+        string avatar_url    "✨ 上传图片路径"
+        string voice_id      "✨ 声音克隆ID（空=默认TTS）"
+        string voice_status  "✨ none/training/ready/failed"
+        json proactive_config
+        bool is_default
         datetime created_at
     }
+
     Message {
-        uuid id PK
-        uuid conversation_id FK
-        string role
+        string id PK
+        string conversation_id FK
+        string role          "user/assistant/proactive"
         text content
         datetime created_at
-    }
-    Memory {
-        uuid id PK
-        uuid user_id FK
-        uuid conversation_id FK
-        text content
-        vector embedding
-        jsonb metadata
-    }
-    Diary {
-        uuid id PK
-        uuid user_id FK
-        date entry_date
-        text content
-        string mood
-    }
-    EmotionLog {
-        uuid id PK
-        uuid user_id FK
-        uuid message_id FK
-        string emotion
-        float score
-    }
-    LlmKey {
-        uuid id PK
-        uuid user_id FK
-        string provider
-        text api_key_encrypted
-    }
-    PushSubscription {
-        uuid id PK
-        uuid user_id FK
-        text endpoint
-        text p256dh
-        text auth
     }
 ```
 
-**关键字段**：
-- `Character.proactive_config` (jsonb)：主动触发配置（定时时段、问候类型、事件开关）
-- `Memory.embedding` (vector)：pgvector 向量，检索 top-5
-- `LlmKey.api_key_encrypted`：AES 加密，仅服务端解密
-- `Character.is_default`：内置默认角色，不可删
+### Character 表 v2 新增字段
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| avatar_url | string | 上传图片的相对路径（如 `/uploads/avatars/xxx.jpg`） |
+| voice_id | string | 声音克隆模型 ID（火山引擎返回），空表示用默认 TTS |
+| voice_status | string | `none`（未上传）/ `training`（训练中）/ `ready`（就绪）/ `failed`（失败） |
 
 ---
 
 ## 4. 服务端边界
 
-**必须在服务端**：
-- 用户注册/登录（密码哈希、JWT 签发）
-- LLM 调用（key 加密存储，服务端转发流式，绝不暴露 key 到前端）
-- 主动陪伴调度（APScheduler 后台常驻，定时+事件触发）
-- 向量记忆检索（pgvector 查询 + 提取/注入）
-- 数据写入（角色/消息/日记/记忆/情绪，全经服务端）
-- Web Push 推送（VAPID 私钥签名）
-- API key 加解密
+### 必须在服务端
+- **鉴权**：JWT 签发/验证，密码 bcrypt
+- **文件上传**：图片/语音文件接收、存储、大小校验
+- **声音克隆**：调用火山引擎 TTS API 训练声音模型
+- **LLM 调用**：API key 解密、流式调用、记忆注入
+- **数据写入**：所有 ORM 写操作
 
-**可以在客户端**：
-- UI 渲染、表单校验、输入控制
-- 流式消息渲染（SSE 接收逐 token）
-- Web Speech API 调用（浏览器原生 ASR/TTS）
-- Web Push 订阅注册（前端拿 endpoint 提交后端）
-- 非敏感数据缓存、乐观更新
+### 可以在客户端
+- **ASR**：Web Speech API 浏览器内置
+- **TTS 播放**：Web Speech API 或调用后端 TTS API 获取音频
+- **VAD**：语音活动检测（Web Audio API）
+- **UI 状态**：聊天/通话模式切换、输入状态
+- **文件预览**：上传前图片预览/语音试听
 
-**鉴权策略**：
-- JWT + httpOnly Cookie（防 XSS 窃取 token）
-- FastAPI 依赖注入校验当前用户
-- API key 用户级 AES 加密，仅服务端解密调用 LLM
-
-**LLM 适配层边界**（核心）：
-- `services/llm/base.py` 统一接口：`chat_stream(messages, model) -> AsyncIterator[str]`、`list_models() -> list`、`embed(text) -> vector`
-- 各 provider 适配器实现接口，抹平消息格式/流式协议差异
-- `/models` 聚合用户已配置 key 下的可用模型
-- 流式响应统一转 SSE，前端不感知 provider 差异
-
----
-
-## 5. Protected Region（AI 不可覆盖）
-
-| 文件 | 职责 | 保护理由 |
-|------|------|----------|
-| `server/app/services/llm/base.py` | Provider 抽象接口 | 契约层，影响所有适配器 |
-| `server/app/services/llm/providers/*.py` | 各 provider 适配器 | 含 key 处理/流式协议，易错 |
-| `server/app/services/memory/*.py` | 记忆提取/检索/注入 | 核心 RAG 逻辑 |
-| `server/app/services/proactive/*.py` | 主动陪伴调度 | 触发逻辑复杂 |
-| `server/app/core/auth.py` | 鉴权逻辑 | 安全关键 |
-| `server/app/core/crypto.py` | API key 加解密 | 安全关键 |
-| `web/features/chat/stream.ts` | 流式 SSE 处理 | 前端流式核心 |
+### WebSocket 语音通话流程
+```
+前端                          后端
+  |                             |
+  |--- WS connect ------------->|  建立连接
+  |                             |
+  |  （VAD 检测用户说话）         |
+  |--- {type:"speech",          |  ASR 文字（前端 Web Speech API）
+  |     text:"你好"} ---------->|
+  |                             |
+  |                             |  LLM 流式生成
+  |                             |  TTS 文本 -> 音频
+  |<-- {type:"token",           |  逐 token 推送（前端显示文字）
+  |     text:"..."} ------------|
+  |                             |
+  |<-- {type:"audio_url",       |  TTS 音频 URL（前端播放）
+  |     url:"..."} -------------|
+  |                             |
+  |  （TTS 播放完毕，继续听）     |
+  |                             |
+```
 
 ---
 
-## 6. 变更记录
+## 5. 声音克隆方案
 
+### 依赖
+- 火山引擎 TTS 服务（声音复刻 API）
+- 需要火山引擎 TTS 的 access token（非 ARK LLM key）
+- 若未配置 TTS token，降级为浏览器内置 TTS
+
+### 流程
+1. 用户上传 5-15 秒语音文件
+2. 后端保存到 `uploads/voices/`
+3. 后端调用火山引擎声音复刻 API，上传语音样本
+4. API 返回 `voice_id`（声音模型 ID）
+5. 存储 `voice_id` 到 Character 表，`voice_status = "ready"`
+6. 后续 TTS 调用使用该 `voice_id`
+
+### 降级策略
+- 未配置 TTS token -> `voice_status = "none"`，用浏览器 TTS
+- 训练失败 -> `voice_status = "failed"`，用浏览器 TTS + 错误提示
+
+---
+
+## 6. 模型列表过滤
+
+### 过滤规则
+```python
+EXCLUDE_KEYWORDS = [
+    "embedding", "vision", "image", "tts", "asr",
+    "whisper", "clip", "multimodal", "rerank",
+    "sd", "stable", "dall", "draw", "paint",
+    "video", "code", "preview", "lite-i2v", "lite-t2v",
+]
+
+def filter_chat_models(models: list[str]) -> list[str]:
+    return [
+        m for m in models
+        if not any(kw in m.lower() for kw in EXCLUDE_KEYWORDS)
+    ]
+```
+
+### 输出示例
+- 过滤前：`doubao-pro-32k, doubao-embedding-text, doubao-vision-pro, ...`
+- 过滤后：`doubao-pro-32k, doubao-seed-1-6, deepseek-v4-flash, ...`
+
+---
+
+## 7. Protected Region（AI 不可覆盖）
+- `server/app/services/llm/` - LLM 适配层核心逻辑
+- `server/app/services/voice/` - 声音克隆逻辑
+- `server/app/services/memory/extract.py` - 记忆提取 prompt
+- `server/app/services/proactive/generator.py` - 主动消息生成
+- `server/app/core/crypto.py` - 加密逻辑
+- `server/app/services/character/default.py` - 默认角色人设
+
+---
+
+## 8. 变更记录
 | 日期 | 变更内容 | 原因 |
 |------|----------|------|
 | 2026-08-08 | 初版架构 | vibe-plan 阶段3 |
+| 2026-08-08 | v2 架构升级 | 语音电话 + 文件上传 + 声音克隆 + 模型过滤 |
