@@ -45,14 +45,14 @@ export default function MemoryPage() {
     <div className="p-4">
       <h1 className="mb-4 text-xl font-bold">记忆管理</h1>
 
-      {error && <p className="mb-2 text-sm text-red-500">{error}</p>}
-      {msg && <p className="mb-2 text-sm text-green-600">{msg}</p>}
+      {error && <p className="mb-2 text-sm text-red-400">{error}</p>}
+      {msg && <p className="mb-2 text-sm text-green-400">{msg}</p>}
 
       {loading ? (
-        <p className="text-sm text-neutral-400">加载中...</p>
+        <p className="text-sm text-white/40">加载中...</p>
       ) : memories.length === 0 ? (
-        <div className="rounded-lg bg-white p-8 text-center">
-          <p className="text-sm text-neutral-400">
+        <div className="rounded-lg glass p-8 text-center">
+          <p className="text-sm text-white/40">
             还没有记忆。和角色聊天时，关键信息会自动记住。
           </p>
         </div>
@@ -61,11 +61,11 @@ export default function MemoryPage() {
           {memories.map((m) => (
             <div
               key={m.id}
-              className="flex items-start justify-between rounded-lg bg-white p-3"
+              className="flex items-start justify-between rounded-lg glass p-3"
             >
               <div className="flex-1">
-                <p className="text-sm text-neutral-800">{m.content}</p>
-                <p className="mt-1 text-xs text-neutral-400">
+                <p className="text-sm text-white">{m.content}</p>
+                <p className="mt-1 text-xs text-white/40">
                   {new Date(m.created_at).toLocaleDateString()}
                 </p>
               </div>

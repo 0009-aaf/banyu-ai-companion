@@ -61,23 +61,23 @@ export default function CharactersPage() {
         <h1 className="text-xl font-bold">角色</h1>
         <Link
           href="/characters/new"
-          className="rounded-lg bg-amber-500 px-4 py-2 text-sm text-white"
+          className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-white"
         >
           新建
         </Link>
       </div>
-      {error && <p className="mb-3 text-sm text-red-500">{error}</p>}
+      {error && <p className="mb-3 text-sm text-red-400">{error}</p>}
       {loading ? (
-        <p className="text-center text-neutral-400">加载中...</p>
+        <p className="text-center text-white/40">加载中...</p>
       ) : characters.length === 0 ? (
-        <p className="text-center text-neutral-400">还没有角色</p>
+        <p className="text-center text-white/40">还没有角色</p>
       ) : (
         <div className="space-y-3">
           {characters.map((c) => (
             <div
               key={c.id}
-              className={`rounded-xl bg-white p-4 shadow-sm transition active:scale-[0.98] ${
-                currentCharacterId === c.id ? "ring-2 ring-amber-400" : ""
+              className={`rounded-xl glass p-4 shadow-sm transition active:scale-[0.98] ${
+                currentCharacterId === c.id ? "ring-2 ring-[#f0c958]" : ""
               }`}
             >
               <button
@@ -85,34 +85,34 @@ export default function CharactersPage() {
                 className="flex-1 text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-lg font-medium text-amber-700">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0c958]/15 text-lg font-medium text-[#f0c958]">
                     {c.name.charAt(0)}
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">{c.name}</span>
                   {c.is_default && (
-                    <span className="rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-700">
+                    <span className="rounded bg-[#f0c958]/15 px-2 py-0.5 text-xs text-[#f0c958]">
                       默认
                     </span>
                   )}
                   {currentCharacterId === c.id && (
-                    <span className="text-xs text-amber-600">当前</span>
+                    <span className="text-xs text-[#f0c958]">当前</span>
                   )}
                 </div>
-                <p className="mt-1 line-clamp-2 text-sm text-neutral-500">{c.persona}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-white/50">{c.persona}</p>
                   </div>
                 </div>
               </button>
               <div className="mt-3 flex gap-3 text-sm">
                 <button
                   onClick={() => router.push(`/characters/${c.id}/edit`)}
-                  className="text-amber-600"
+                  className="text-[#f0c958]"
                 >
                   编辑
                 </button>
                 {!c.is_default && (
-                  <button onClick={() => handleDelete(c.id)} className="text-red-500">
+                  <button onClick={() => handleDelete(c.id)} className="text-red-400">
                     删除
                   </button>
                 )}

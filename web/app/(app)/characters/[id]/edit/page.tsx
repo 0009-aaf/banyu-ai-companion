@@ -41,8 +41,8 @@ export default function EditCharacterPage() {
     router.push("/characters");
   }
 
-  if (error) return <div className="p-4 text-red-500">{error}</div>;
-  if (!initial) return <div className="p-4 text-neutral-400">加载中...</div>;
+  if (error) return <div className="p-4 text-red-400">{error}</div>;
+  if (!initial) return <div className="p-4 text-white/40">加载中...</div>;
 
   return (
     <div className="p-4">

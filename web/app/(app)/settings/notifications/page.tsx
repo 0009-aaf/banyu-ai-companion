@@ -103,7 +103,7 @@ export default function NotificationsPage() {
     return (
       <div className="p-4">
         <h1 className="mb-4 text-xl font-bold">通知设置</h1>
-        <p className="text-sm text-neutral-500">你的浏览器不支持 Web Push 通知</p>
+        <p className="text-sm text-white/50">你的浏览器不支持 Web Push 通知</p>
       </div>
     );
   }
@@ -112,11 +112,11 @@ export default function NotificationsPage() {
     <div className="p-4">
       <h1 className="mb-4 text-xl font-bold">通知设置</h1>
 
-      {error && <p className="mb-2 text-sm text-red-500">{error}</p>}
-      {msg && <p className="mb-2 whitespace-pre-wrap text-sm text-green-600">{msg}</p>}
+      {error && <p className="mb-2 text-sm text-red-400">{error}</p>}
+      {msg && <p className="mb-2 whitespace-pre-wrap text-sm text-green-400">{msg}</p>}
 
-      <div className="mb-4 rounded-lg bg-white p-4">
-        <p className="mb-2 text-sm text-neutral-500">通知权限</p>
+      <div className="mb-4 rounded-lg glass p-4">
+        <p className="mb-2 text-sm text-white/50">通知权限</p>
         <p className="mb-3">
           {permission === "granted"
             ? "已授权"
@@ -129,24 +129,24 @@ export default function NotificationsPage() {
           <button
             onClick={handleSubscribe}
             disabled={loading || permission === "denied"}
-            className="w-full rounded-lg bg-amber-500 py-2 text-white disabled:opacity-50"
+            className="w-full rounded-lg bg-[#f0c958] py-2 text-white disabled:opacity-50"
           >
             {loading ? "..." : "开启通知"}
           </button>
         ) : (
           <div className="space-y-2">
-            <p className="text-sm text-green-600">通知已开启</p>
+            <p className="text-sm text-green-400">通知已开启</p>
             <button
               onClick={handleTest}
               disabled={loading}
-              className="w-full rounded-lg border border-neutral-200 bg-white py-2 text-sm"
+              className="w-full rounded-lg border border-white/10 glass py-2 text-sm"
             >
               发送测试推送
             </button>
             <button
               onClick={handleUnsubscribe}
               disabled={loading}
-              className="w-full rounded-lg border border-neutral-200 bg-white py-2 text-sm text-red-500"
+              className="w-full rounded-lg border border-white/10 glass py-2 text-sm text-red-400"
             >
               关闭通知
             </button>
@@ -154,32 +154,32 @@ export default function NotificationsPage() {
         )}
       </div>
 
-      <div className="rounded-lg bg-white p-4">
+      <div className="rounded-lg glass p-4">
         <p className="mb-3 text-sm font-medium">手动触发主动消息（测试用）</p>
         <div className="space-y-2">
           <button
             onClick={() => handleTrigger("morning")}
             disabled={loading}
-            className="w-full rounded-lg border border-neutral-200 bg-white py-2 text-sm"
+            className="w-full rounded-lg border border-white/10 glass py-2 text-sm"
           >
             早安问候
           </button>
           <button
             onClick={() => handleTrigger("evening")}
             disabled={loading}
-            className="w-full rounded-lg border border-neutral-200 bg-white py-2 text-sm"
+            className="w-full rounded-lg border border-white/10 glass py-2 text-sm"
           >
             晚安问候
           </button>
           <button
             onClick={() => handleTrigger("random")}
             disabled={loading}
-            className="w-full rounded-lg border border-neutral-200 bg-white py-2 text-sm"
+            className="w-full rounded-lg border border-white/10 glass py-2 text-sm"
           >
             随机问候
           </button>
         </div>
-        <p className="mt-2 text-xs text-neutral-400">
+        <p className="mt-2 text-xs text-white/40">
           手动触发会立即生成一条主动消息，不等待定时任务。消息会出现在对话页。
         </p>
       </div>

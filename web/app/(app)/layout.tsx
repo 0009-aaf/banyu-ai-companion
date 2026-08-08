@@ -37,15 +37,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <main className="flex-1">{children}</main>
-      <nav className="flex border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)]">
+    <div className="flex min-h-screen flex-col" style={{ background: "var(--bg-base)" }}>
+      <main className="flex-1 relative z-10">{children}</main>
+      <nav className="flex border-t border-white/10 pb-[env(safe-area-inset-bottom)]" style={{ background: "rgba(10, 10, 26, 0.8)", backdropFilter: "blur(12px)" }}>
         {tabs.map((t) => (
           <Link
             key={t.href}
             href={t.href}
-            className={`flex-1 py-3 text-center text-sm ${
-              pathname.startsWith(t.href) ? "font-medium text-amber-600" : "text-neutral-500"
+            className={`flex-1 py-3 text-center text-sm transition ${
+              pathname.startsWith(t.href) ? "font-medium text-[#f0c958]" : "text-white/50"
             }`}
           >
             {t.label}

@@ -60,7 +60,7 @@ export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormP
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={64}
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+          className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
         />
       </div>
       <div>
@@ -70,7 +70,7 @@ export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormP
           value={avatarUrl}
           onChange={(e) => setAvatarUrl(e.target.value)}
           placeholder="留空使用默认头像"
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+          className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
         />
       </div>
       <div>
@@ -80,15 +80,15 @@ export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormP
           onChange={(e) => setPersona(e.target.value)}
           rows={8}
           maxLength={2000}
-          className="w-full resize-none rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+          className="w-full resize-none rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
         />
-        <p className="mt-1 text-xs text-neutral-400">{persona.length}/2000</p>
+        <p className="mt-1 text-xs text-white/40">{persona.length}/2000</p>
       </div>
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-red-400">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-amber-500 py-2 font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+        className="w-full rounded-lg bg-[#f0c958] py-2 font-medium text-[#0a0a1a] hover:bg-[#f0c958]/90 disabled:opacity-50"
       >
         {loading ? "提交中..." : submitLabel}
       </button>

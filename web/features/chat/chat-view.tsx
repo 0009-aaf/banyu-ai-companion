@@ -138,11 +138,11 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
 
   return (
     <div className="flex h-[calc(100vh-49px)] flex-col">
-      <div className="flex-1 overflow-y-auto bg-neutral-50 px-4 py-4">
+      <div className="flex-1 overflow-y-auto px-4 py-4">
         {messages.length === 0 ? (
           <div className="mt-20 flex flex-col items-center gap-3 text-center">
             <span className="text-5xl">💬</span>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-white/40">
               开始和角色聊聊吧
             </p>
           </div>
@@ -153,8 +153,8 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
         )}
         <div ref={endRef} />
       </div>
-      {error && <p className="px-4 text-sm text-red-500">{error}</p>}
-      <div className="border-t border-neutral-200 bg-white p-3">
+      {error && <p className="px-4 text-sm text-red-400">{error}</p>}
+      <div className="border-t border-white/10 glass p-3">
         <div className="flex gap-2">
           {isASRSupported() && (
             <VoiceToggle
@@ -170,12 +170,12 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
             rows={1}
             placeholder={voiceMode ? (listening ? "正在听..." : "点击语音按钮说话") : "说点什么..."}
             disabled={streaming}
-            className="flex-1 resize-none rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-amber-300"
+            className="flex-1 resize-none rounded-lg border border-white/10 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#f0c958]/40"
           />
           <button
             onClick={handleSend}
             disabled={streaming || !input.trim()}
-            className="rounded-lg bg-amber-500 px-4 py-2 text-sm text-white disabled:opacity-50"
+            className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-white disabled:opacity-50"
           >
             {streaming ? "..." : "发送"}
           </button>

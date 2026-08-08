@@ -43,7 +43,7 @@ export default function ChatEntryPage() {
   }, [currentCharacterId, router]);
 
   return (
-    <div className="flex min-h-[calc(100vh-49px)] items-center justify-center text-neutral-400">
+    <div className="flex min-h-[calc(100vh-49px)] items-center justify-center text-white/40">
       {error ?? "加载中..."}
     </div>
   );

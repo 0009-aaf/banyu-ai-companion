@@ -46,7 +46,7 @@ export default function RegisterPage() {
   return (
     <div className="w-full max-w-sm">
       <h1 className="text-2xl font-bold mb-1">伴语</h1>
-      <p className="text-sm text-neutral-500 mb-6">创建账号</p>
+      <p className="text-sm text-white/50 mb-6">创建账号</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm mb-1">昵称（可选）</label>
@@ -55,7 +55,7 @@ export default function RegisterPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             placeholder="伴语用户"
-            className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+            className="w-full rounded-lg border border-white/10 glass px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
           />
         </div>
         <div>
@@ -65,7 +65,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+            className="w-full rounded-lg border border-white/10 glass px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
           />
         </div>
         <div>
@@ -75,21 +75,21 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-amber-300"
+            className="w-full rounded-lg border border-white/10 glass px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
           />
         </div>
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-red-400">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-amber-500 py-2 font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+          className="w-full rounded-lg bg-[#f0c958] py-2 font-medium text-white hover:bg-[#f0c958]/90 disabled:opacity-50"
         >
           {loading ? "注册中..." : "注册"}
         </button>
       </form>
-      <p className="mt-4 text-center text-sm text-neutral-500">
+      <p className="mt-4 text-center text-sm text-white/50">
         已有账号？
-        <Link href="/login" className="text-amber-600">
+        <Link href="/login" className="text-[#f0c958]">
           登录
         </Link>
       </p>
