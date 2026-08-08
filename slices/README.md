@@ -41,7 +41,7 @@ graph LR
 | 009 | emotion | 004, 006 | ✅ 完成 | | slice/009-emotion |
 | 010 | ui-redesign | 001-009 | ✅ 完成 | | slice/010-ui-redesign |
 | 011 | avatar-upload | 010 | spec 就绪 | | slice/011-avatar-upload |
-| 012 | model-filter | 无 | spec 就绪 | | slice/012-model-filter |
+| 012 | model-filter | 无 | ✅ 完成 | | slice/012-model-filter |
 | 013 | voice-continuous | 010 | spec 就绪 | | slice/013-voice-continuous |
 | 014 | voice-call | 011, 013 | spec 就绪 | | slice/014-voice-call |
 | 015 | voice-clone | 011, 013 | spec 就绪 | | slice/015-voice-clone |
