@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { MessageBubble } from "./message-bubble";
 import { streamChat } from "./stream";
 import { useAuthStore } from "@/lib/store";
@@ -20,6 +21,7 @@ interface ChatViewProps {
 }
 
 export function ChatView({ convId, initialMessages }: ChatViewProps) {
+  const router = useRouter();
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -205,6 +207,14 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
                 onToggle={handleVoiceToggle}
               />
             )}
+            <button
+              onClick={() => router.push(`/call?convId=${convId}`)}
+              disabled={streaming}
+              className="rounded-lg bg-white/10 px-3 py-2 text-sm text-[#f0c958] disabled:opacity-50"
+              title="语音电话"
+            >
+              电话
+            </button>
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
