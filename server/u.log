@@ -1,10 +1,5 @@
-INFO:     127.0.0.1:50942 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56190 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:56190 - "GET /api/diary HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "GET /api/diary/today HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56190 - "GET /api/diary HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "GET /api/diary/today HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "POST /api/diary HTTP/1.1" 201 Created
-INFO:     127.0.0.1:56190 - "GET /api/diary/today HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "GET /api/diary HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62146 - "DELETE /api/diary/7bafa3f9-c68c-44f2-9dd8-8a0017669c9c HTTP/1.1" 204 No Content
+INFO:     127.0.0.1:50114 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50114 - "POST /api/push/trigger/random HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59384 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59441 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:59441 - "POST /api/push/trigger/random HTTP/1.1" 200 OK

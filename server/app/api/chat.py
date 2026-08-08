@@ -176,6 +176,19 @@ async def stream_chat(
         except Exception:
             pass  # 记忆提取失败不阻断对话
 
+        # 异步情绪分析 + 触发主动关心
+        try:
+            from app.services.emotion.analyzer import analyze_emotion
+            from app.services.emotion.trigger import should_trigger, trigger_care_message
+
+            emotion_result = await analyze_emotion(payload.content, key_row)
+            if emotion_result:
+                emotion, score = emotion_result
+                if await should_trigger(conv_id, emotion, score):
+                    await trigger_care_message(current.id, conv_id, character, key_row)
+        except Exception:
+            pass  # 情绪分析失败不阻断对话
+
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(generate(), media_type="text/event-stream")

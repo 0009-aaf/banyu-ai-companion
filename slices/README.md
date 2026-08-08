@@ -31,7 +31,7 @@ graph LR
 | 006 | proactive | 003, 004 | ✅ 完成 | | slice/006-proactive |
 | 007 | voice | 004 | ✅ 完成 | | slice/007-voice |
 | 008 | diary | 001, 005 | ✅ 完成 | | slice/008-diary |
-| 009 | emotion | 004, 006 | spec 就绪 | | slice/009-emotion |
+| 009 | emotion | 004, 006 | ✅ 完成 | | slice/009-emotion |
 
 ## 起步路径
 

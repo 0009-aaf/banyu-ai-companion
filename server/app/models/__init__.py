@@ -3,6 +3,7 @@
 from app.models.character import Character
 from app.models.conversation import Conversation, Message
 from app.models.diary import Diary
+from app.models.emotion_log import EmotionLog
 from app.models.llm_key import LlmKey
 from app.models.memory import Memory
 from app.models.push import PushSubscription
@@ -12,6 +13,7 @@ __all__ = [
     "Character",
     "Conversation",
     "Diary",
+    "EmotionLog",
     "Memory",
     "Message",
     "LlmKey",

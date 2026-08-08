@@ -10,3 +10,4 @@
  GET /register 200 in 627ms (next.js: 456ms, application-code: 171ms)
  GET /chat 200 in 23ms (next.js: 5ms, application-code: 18ms)
  GET /diary 200 in 838ms (next.js: 762ms, application-code: 77ms)
+[?25h
