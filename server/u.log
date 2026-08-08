@@ -1,15 +1,22 @@
-INFO:     127.0.0.1:64294 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50187 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58438 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:58439 - "PUT /api/llm/keys HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58438 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58439 - "GET /api/characters HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58438 - "POST /api/upload/image HTTP/1.1" 201 Created
-INFO:     127.0.0.1:58439 - "POST /api/voice/clone/2d5853c3-eccb-4465-8fc3-8ec886f8098a HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58438 - "GET /api/voice/status/2d5853c3-eccb-4465-8fc3-8ec886f8098a HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58439 - "POST /api/chat/conversations HTTP/1.1" 201 Created
-INFO:     127.0.0.1:58438 - "POST /api/chat/conversations/2f29e057-5a05-4084-80da-e54f218cac01/stream HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56390 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:56390 - "POST /api/upload/image HTTP/1.1" 422 Unprocessable Content
-INFO:     127.0.0.1:54912 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:54914 - "POST /api/upload/image HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:52033 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:52033 - "PUT /api/llm/keys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52033 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65371 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:65371 - "PUT /api/llm/keys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65371 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50641 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:62285 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/llm/models/volc HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:62285 - "PUT /api/llm/keys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/llm/providers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/characters HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/characters HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/chat/conversations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/chat/conversations HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50972 - "POST /api/chat/conversations HTTP/1.1" 201 Created
+INFO:     127.0.0.1:62285 - "POST /api/chat/conversations HTTP/1.1" 201 Created
+INFO:     127.0.0.1:62285 - "GET /api/chat/conversations/d26da527-08ad-4b81-ac5e-2c78db3da3a3/messages HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "GET /api/chat/conversations/d26da527-08ad-4b81-ac5e-2c78db3da3a3/messages HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62285 - "POST /api/chat/conversations/d26da527-08ad-4b81-ac5e-2c78db3da3a3/stream HTTP/1.1" 200 OK

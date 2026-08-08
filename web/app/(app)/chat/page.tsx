@@ -43,8 +43,22 @@ export default function ChatEntryPage() {
   }, [currentCharacterId, router]);
 
   return (
-    <div className="flex min-h-[calc(100vh-49px)] items-center justify-center text-white/40">
-      {error ?? "加载中..."}
+    <div className="flex min-h-[calc(100vh-49px)] flex-col items-center justify-center gap-4 text-center">
+      {error ? (
+        <>
+          <p className="text-white/40">{error}</p>
+          {!currentCharacterId && (
+            <button
+              onClick={() => router.push("/characters")}
+              className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-[#0a0a1a]"
+            >
+              去选择角色
+            </button>
+          )}
+        </>
+      ) : (
+        <p className="text-white/40">加载中...</p>
+      )}
     </div>
   );
 }

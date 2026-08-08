@@ -14,11 +14,14 @@ from app.services.llm.base import LlmProvider, Message
 
 
 class OpenAiCompatProvider(LlmProvider):
-    def __init__(self, base_url: str, name: str):
+    def __init__(self, base_url: str, name: str, fixed_models: list[str] | None = None):
         self._base_url = base_url.rstrip("/")
         self._name = name
+        self._fixed_models = fixed_models
 
     async def list_models(self, api_key: str) -> list[str]:
+        if self._fixed_models is not None:
+            return list(self._fixed_models)
         if not api_key:
             return []
         async with httpx.AsyncClient(timeout=15) as client:
