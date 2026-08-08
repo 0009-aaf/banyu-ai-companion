@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ChatView } from "@/features/chat/chat-view";
+import { ConversationList } from "@/features/chat/conversation-list";
 import { apiFetch, ApiError } from "@/lib/api";
 
 interface Message {
@@ -28,5 +29,14 @@ export default function ChatPage() {
   if (error) return <div className="p-4 text-red-500">{error}</div>;
   if (!messages) return <div className="p-4 text-neutral-400">加载中...</div>;
 
-  return <ChatView convId={params.id} initialMessages={messages} />;
+  return (
+    <div className="flex h-[calc(100vh-49px)] md:h-screen">
+      <aside className="hidden md:block md:w-60 md:border-r border-white/10">
+        <ConversationList currentConvId={params.id} />
+      </aside>
+      <div className="flex-1">
+        <ChatView convId={params.id} initialMessages={messages} />
+      </div>
+    </div>
+  );
 }

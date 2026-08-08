@@ -48,7 +48,7 @@ graph LR
 | 014 | voice-call | 011, 013 | ✅ 完成 | | slice/014-voice-call |
 | 015 | voice-clone | 011, 013 | ✅ 完成 | | slice/015-voice-clone |
 | 016 | responsive-layout | 010 | ✅ 完成 | | slice/016-responsive-layout |
-| 017 | chat-conversation-list | 016 | spec 就绪 | | slice/017-chat-conversation-list |
+| 017 | chat-conversation-list | 016 | 实现中 | impl-017-2026-08-08-t5w2 | slice/017-chat-conversation-list |
 
 ## v2 起步路径
 

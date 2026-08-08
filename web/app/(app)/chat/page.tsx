@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiFetch, ApiError } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { ConversationList } from "@/features/chat/conversation-list";
 
 interface Conversation {
   id: string;
@@ -43,22 +44,27 @@ export default function ChatEntryPage() {
   }, [currentCharacterId, router]);
 
   return (
-    <div className="flex min-h-[calc(100vh-49px)] flex-col items-center justify-center gap-4 text-center md:h-screen md:max-w-3xl md:mx-auto">
-      {error ? (
-        <>
-          <p className="text-white/40">{error}</p>
-          {!currentCharacterId && (
-            <button
-              onClick={() => router.push("/characters")}
-              className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-[#0a0a1a]"
-            >
-              去选择角色
-            </button>
-          )}
-        </>
-      ) : (
-        <p className="text-white/40">加载中...</p>
-      )}
+    <div className="flex h-[calc(100vh-49px)] md:h-screen">
+      <aside className="hidden md:block md:w-60 md:border-r border-white/10">
+        <ConversationList currentConvId={null} />
+      </aside>
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+        {error ? (
+          <>
+            <p className="text-white/40">{error}</p>
+            {!currentCharacterId && (
+              <button
+                onClick={() => router.push("/characters")}
+                className="rounded-lg bg-[#f0c958] px-4 py-2 text-sm text-[#0a0a1a]"
+              >
+                去选择角色
+              </button>
+            )}
+          </>
+        ) : (
+          <p className="text-white/40">加载中...</p>
+        )}
+      </div>
     </div>
   );
 }
