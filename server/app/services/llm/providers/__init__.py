@@ -8,6 +8,7 @@ from app.services.llm.providers.openai_compat import OpenAiCompatProvider
 PROVIDERS: dict[str, OpenAiCompatProvider] = {
     "openai": OpenAiCompatProvider("https://api.openai.com/v1", "openai"),
     "doubao": OpenAiCompatProvider("https://ark.cn-beijing.volces.com/api/v3", "doubao"),
+    "volc": OpenAiCompatProvider("https://ark.cn-beijing.volces.com/api/coding/v3", "volc"),
     "qwen": OpenAiCompatProvider("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen"),
     "deepseek": OpenAiCompatProvider("https://api.deepseek.com/v1", "deepseek"),
     "zhipu": OpenAiCompatProvider("https://open.bigmodel.cn/api/paas/v4", "zhipu"),

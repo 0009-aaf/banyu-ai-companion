@@ -25,6 +25,7 @@ DEFAULT_CHAT_MODELS: dict[str, str] = {
     "deepseek": "deepseek-chat",
     "openai": "gpt-4o-mini",
     "doubao": "doubao-pro-32k",
+    "volc": "deepseek-v4-flash",
     "qwen": "qwen-turbo",
     "zhipu": "glm-4-flash",
 }

@@ -17,6 +17,7 @@ interface ModelsOut {
 const PROVIDER_LABELS: Record<string, string> = {
   openai: "OpenAI",
   doubao: "豆包",
+  volc: "火山引擎",
   qwen: "通义千问",
   deepseek: "DeepSeek",
   zhipu: "智谱",
