@@ -29,6 +29,10 @@ jobs:
         working-directory: web
         run: npm install
 
+      - name: Prepare web assets
+        working-directory: web
+        run: mkdir -p out && mkdir -p android/app/src/main/assets
+
       - name: Sync Capacitor
         working-directory: web
         run: npx cap sync android
