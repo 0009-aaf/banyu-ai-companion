@@ -3,12 +3,25 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 *.db
+*.db-journal
 .env
 .ruff_cache/
+.venv/
+venv/
 
 # Node
 node_modules/
 .next/
+web/n.log
+web/n.err
+
+# 日志
+server/u.log
+server/u.err
+*.log
+
+# 上传文件（用户数据）
+server/uploads/
 
 # OS
 .DS_Store
@@ -17,3 +30,15 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Android
+android/
+*.apk
+*.aab
+*.keystore
+local.properties
+
+# Build
+dist/
+build/
+out/
