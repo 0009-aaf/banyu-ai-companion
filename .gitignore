@@ -45,3 +45,10 @@ android/captures/
 dist/
 build/
 out/
+
+# 项目内部文件（不上传）
+AGENTS.md
+quality-gate.js
+docs/
+slices/
+references/
