@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/store";
 import { VoiceInput, isASRSupported } from "@/features/voice/voice-input";
 import { VoiceOutput, isTTSSupported } from "@/features/voice/voice-output";
 import { apiFetch } from "@/lib/api";
+import { ParticleBackground } from "@/components/particle-background";
 
 interface CharacterInfo {
   name: string;
@@ -136,17 +137,18 @@ export function CallView({ convId }: { convId: string }) {
 
   return (
     <div
-      className="flex h-screen flex-col items-center justify-between md:max-w-md md:mx-auto"
+      className="relative flex h-screen flex-col items-center justify-between md:max-w-md md:mx-auto"
       style={{ background: "linear-gradient(to bottom, #0a0a1a, #1a1a3a)" }}
     >
-      <div className="pt-12 text-center">
+      <ParticleBackground type="sakura" count={30} />
+      <div className="relative z-10 pt-12 text-center">
         <p className="text-sm text-white/50">
           {listening ? "正在听..." : speaking ? "正在说话..." : "通话中"}
         </p>
         <p className="mt-1 text-2xl font-mono text-white">{mins}:{secs}</p>
       </div>
 
-      <div className="flex flex-col items-center gap-4">
+      <div className="relative z-10 flex flex-col items-center gap-4">
         {character?.avatar_url ? (
           <img
             src={character.avatar_url}
@@ -169,7 +171,7 @@ export function CallView({ convId }: { convId: string }) {
         {error && <p className="text-sm text-red-400">{error}</p>}
       </div>
 
-      <div className="pb-12">
+      <div className="relative z-10 pb-12">
         <button
           onClick={handleHangup}
           className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500 text-white shadow-lg shadow-red-500/30 active:scale-95"

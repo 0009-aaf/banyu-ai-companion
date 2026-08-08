@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
+import { ParticleBackground } from "@/components/particle-background";
 
 const tabs = [
   { href: "/chat", label: "对话" },
@@ -44,9 +45,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen" style={{ background: "var(--bg-base)" }}>
+      <ParticleBackground type="firefly" count={40} />
       {/* 桌面端侧边栏 */}
       <aside
-        className="hidden md:flex md:w-60 md:flex-col md:border-r border-white/10"
+        className="relative z-10 hidden md:flex md:w-60 md:flex-col md:border-r border-white/10"
         style={{ background: "rgba(10,10,26,0.6)", backdropFilter: "blur(12px)" }}
       >
         <div className="p-6">
@@ -78,7 +80,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* 内容区 + 移动端底部导航 */}
-      <div className="flex flex-1 flex-col">
+      <div className="relative z-10 flex flex-1 flex-col">
         <main className="relative z-10 flex-1">{children}</main>
         <nav
           className="flex border-t border-white/10 pb-[env(safe-area-inset-bottom)] md:hidden"
