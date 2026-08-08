@@ -4,6 +4,7 @@ import { readTokenFromStorage } from "@/lib/api";
 
 export class EdgeTtsPlayer {
   private audio: HTMLAudioElement | null = null;
+  private blobUrl: string | null = null;
 
   async speak(text: string, voice: string, onDone?: () => void): Promise<void> {
     if (!text) {
@@ -30,19 +31,20 @@ export class EdgeTtsPlayer {
       }
 
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      this.audio = new Audio(url);
+      this.blobUrl = URL.createObjectURL(blob);
+      this.audio = new Audio(this.blobUrl);
       this.audio.onended = () => {
-        URL.revokeObjectURL(url);
+        this.cleanup();
         onDone?.();
       };
       this.audio.onerror = () => {
-        URL.revokeObjectURL(url);
+        this.cleanup();
         onDone?.();
       };
       await this.audio.play();
     } catch (err) {
       console.error("TTS 播放失败:", err);
+      this.cleanup();
       onDone?.();
     }
   }
@@ -50,8 +52,17 @@ export class EdgeTtsPlayer {
   stop(): void {
     if (this.audio) {
       this.audio.pause();
-      this.audio.src = "";
+      this.audio.onended = null;
+      this.audio.onerror = null;
       this.audio = null;
+    }
+    this.cleanup();
+  }
+
+  private cleanup(): void {
+    if (this.blobUrl) {
+      URL.revokeObjectURL(this.blobUrl);
+      this.blobUrl = null;
     }
   }
 }
