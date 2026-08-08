@@ -10,6 +10,7 @@ interface Character {
   id: string;
   name: string;
   persona: string;
+  avatar_url: string | null;
   is_default: boolean;
   created_at: string;
 }
@@ -85,9 +86,13 @@ export default function CharactersPage() {
                 className="flex-1 text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0c958]/15 text-lg font-medium text-[#f0c958]">
-                    {c.name.charAt(0)}
-                  </span>
+                  {c.avatar_url ? (
+                    <img src={c.avatar_url} alt={c.name} className="h-10 w-10 shrink-0 rounded-full object-cover" />
+                  ) : (
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0c958]/15 text-lg font-medium text-[#f0c958]">
+                      {c.name.charAt(0)}
+                    </span>
+                  )}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">{c.name}</span>

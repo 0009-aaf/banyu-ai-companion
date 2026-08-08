@@ -1,6 +1,6 @@
 JWT_SECRET/ENCRYPT_KEY 使用默认值，仅限开发！生产请配置环境变量。
 JWT_SECRET/ENCRYPT_KEY 使用默认值，仅限开发！生产请配置环境变量。
-INFO:     Started server process [10396]
+INFO:     Started server process [25984]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)

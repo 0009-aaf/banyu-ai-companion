@@ -1,24 +1,21 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 480ms
+✓ Ready in 535ms
 ⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
 \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
-✓ Running next.config.ts took 151ms
+✓ Running next.config.ts took 159ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.2s (next.js: 2.1s, application-code: 134ms)
- GET / 307 in 909ms (next.js: 798ms, application-code: 110ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 85ms (next.js: 48ms, application-code: 38ms)
- GET /chat 200 in 556ms (next.js: 458ms, application-code: 99ms)
- GET /login 200 in 740ms (next.js: 618ms, application-code: 122ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 69ms (next.js: 34ms, application-code: 35ms)
- GET /chat 200 in 23ms (next.js: 6ms, application-code: 17ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /chat 200 in 38ms (next.js: 3ms, application-code: 36ms)
- GET /characters 200 in 474ms (next.js: 403ms, application-code: 71ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.1s (next.js: 1899ms, application-code: 188ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 2.1s (next.js: 2.1s, application-code: 47ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 197ms (next.js: 57ms, application-code: 140ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 189ms (next.js: 148ms, application-code: 41ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 177ms (next.js: 100ms, application-code: 77ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 111ms (next.js: 88ms, application-code: 23ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 165ms (next.js: 83ms, application-code: 82ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 112ms (next.js: 86ms, application-code: 26ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 53ms (next.js: 24ms, application-code: 29ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 58ms (next.js: 8ms, application-code: 50ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 123ms (next.js: 30ms, application-code: 93ms)
  GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 71ms (next.js: 33ms, application-code: 38ms)
- GET /chat 200 in 32ms (next.js: 5ms, application-code: 27ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 987ms (next.js: 962ms, application-code: 25ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 47ms (next.js: 29ms, application-code: 19ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

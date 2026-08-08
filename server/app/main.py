@@ -8,8 +8,9 @@ from collections.abc import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from app.api import auth, characters, chat, diary, llm_config, memory, push
+from app.api import auth, characters, chat, diary, llm_config, memory, push, upload
 from app.core.config import settings
 from app.core.database import init_db
 from app.scheduler import shutdown_scheduler, start_scheduler
@@ -41,6 +42,10 @@ app.include_router(chat.router, prefix="/api")
 app.include_router(push.router, prefix="/api")
 app.include_router(memory.router, prefix="/api")
 app.include_router(diary.router, prefix="/api")
+app.include_router(upload.router, prefix="/api")
+
+# 静态文件服务（上传的图片/语音）
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 
 @app.get("/health")

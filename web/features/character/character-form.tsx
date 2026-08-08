@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ApiError } from "@/lib/api";
+import { ImageUpload } from "@/features/upload/image-upload";
 
 export interface CharacterFormData {
   name: string;
@@ -64,14 +65,8 @@ export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormP
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm">头像 URL（可选）</label>
-        <input
-          type="text"
-          value={avatarUrl}
-          onChange={(e) => setAvatarUrl(e.target.value)}
-          placeholder="留空使用默认头像"
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 outline-none focus:ring-2 focus:ring-[#f0c958]/40"
-        />
+        <label className="mb-1 block text-sm">角色形象</label>
+        <ImageUpload value={avatarUrl} onChange={setAvatarUrl} />
       </div>
       <div>
         <label className="mb-1 block text-sm">人设（1-2000 字）</label>

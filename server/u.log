@@ -1,5 +1,2 @@
-INFO:     127.0.0.1:56983 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62197 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62197 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:62197 - "PUT /api/llm/keys HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62197 - "GET /api/llm/models/volc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59619 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56436 - "GET /health HTTP/1.1" 200 OK
