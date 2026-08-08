@@ -44,7 +44,7 @@ graph LR
 | 012 | model-filter | 无 | ✅ 完成 | | slice/012-model-filter |
 | 013 | voice-continuous | 010 | ✅ 完成 | | slice/013-voice-continuous |
 | 014 | voice-call | 011, 013 | ✅ 完成 | | slice/014-voice-call |
-| 015 | voice-clone | 011, 013 | spec 就绪 | | slice/015-voice-clone |
+| 015 | voice-clone | 011, 013 | ✅ 完成 | | slice/015-voice-clone |
 
 ## v2 起步路径
 
