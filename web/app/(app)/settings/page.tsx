@@ -45,6 +45,11 @@ export default function SettingsPage() {
     try {
       const data = await apiFetch<ProviderOut[]>("/llm/providers");
       setProviders(data);
+      // 已配 key 的 provider 自动加载模型列表
+      const configured = data.find((p) => p.has_key);
+      if (configured) {
+        await loadModels(configured.provider, true);
+      }
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "加载失败");
     } finally {
@@ -77,12 +82,16 @@ export default function SettingsPage() {
     }
   }
 
-  async function loadModels(provider: string) {
+  async function loadModels(provider: string, preserveModel = false) {
     setActiveProvider(provider);
     setModels([]);
     setError(null);
     setMsg(null);
-    setCurrentLlm(provider, "");
+    if (!preserveModel) {
+      setCurrentLlm(provider, "");
+    } else {
+      setCurrentLlm(provider, useAuthStore.getState().currentModel ?? "");
+    }
     setLoadingModels(true);
     try {
       const data = await apiFetch<ModelsOut>(`/llm/models/${provider}`);
@@ -183,24 +192,24 @@ export default function SettingsPage() {
           </div>
 
           <div className="mt-3">
-            <p className="mb-1 text-sm text-white/50">选择模型</p>
+            <p className="mb-1 text-sm text-white/50">选择或输入模型</p>
             {loadingModels ? (
               <p className="text-sm text-white/40">获取模型中...</p>
-            ) : models.length === 0 ? (
-              <p className="text-sm text-white/40">暂无模型（需配置有效 key）</p>
             ) : (
-              <select
-                value={currentModel ?? ""}
-                onChange={(e) => setCurrentLlm(activeProvider, e.target.value)}
-                className="w-full rounded-lg border border-white/10 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#f0c958]/40"
-              >
-                <option value="">选择模型...</option>
-                {models.map((m) => (
-                  <option key={m} value={m}>
-                    {m}
-                  </option>
-                ))}
-              </select>
+              <>
+                <input
+                  list="model-list"
+                  value={currentModel ?? ""}
+                  onChange={(e) => setCurrentLlm(activeProvider, e.target.value)}
+                  placeholder="选择或输入模型名"
+                  className="w-full rounded-lg border border-white/10 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#f0c958]/40"
+                />
+                <datalist id="model-list">
+                  {models.map((m) => (
+                    <option key={m} value={m} />
+                  ))}
+                </datalist>
+              </>
             )}
             {currentModel && (
               <p className="mt-1 text-xs text-[#f0c958]">当前模型：{currentModel}</p>
