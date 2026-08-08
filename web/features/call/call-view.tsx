@@ -6,6 +6,7 @@ import { streamChat } from "@/features/chat/stream";
 import { useAuthStore } from "@/lib/store";
 import { VoiceInput, isASRSupported } from "@/features/voice/voice-input";
 import { VoiceOutput, isTTSSupported } from "@/features/voice/voice-output";
+import { EdgeTtsPlayer } from "@/features/voice/edge-tts-player";
 import { apiFetch } from "@/lib/api";
 import { ParticleBackground } from "@/components/particle-background";
 
@@ -27,9 +28,11 @@ export function CallView({ convId }: { convId: string }) {
   const currentProvider = useAuthStore((s) => s.currentProvider);
   const currentModel = useAuthStore((s) => s.currentModel);
   const voiceEnabled = useAuthStore((s) => s.voiceEnabled);
+  const ttsVoice = useAuthStore((s) => s.ttsVoice);
 
   const voiceInputRef = useRef<VoiceInput | null>(null);
   const voiceOutputRef = useRef<VoiceOutput | null>(null);
+  const edgeTtsRef = useRef<EdgeTtsPlayer | null>(null);
   const callActiveRef = useRef(true);
   const lastAssistantRef = useRef("");
   const speakingRef = useRef(false);
@@ -57,12 +60,14 @@ export function CallView({ convId }: { convId: string }) {
   useEffect(() => {
     if (isASRSupported()) voiceInputRef.current = new VoiceInput();
     if (isTTSSupported()) voiceOutputRef.current = new VoiceOutput();
+    edgeTtsRef.current = new EdgeTtsPlayer();
     const startTimer = setTimeout(() => startListening(), 1500);
     return () => {
       clearTimeout(startTimer);
       callActiveRef.current = false;
       voiceInputRef.current?.stop();
       voiceOutputRef.current?.stop();
+      edgeTtsRef.current?.stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -113,18 +118,16 @@ export function CallView({ convId }: { convId: string }) {
         if (callActiveRef.current) startListening();
       },
       onDone: () => {
-        const canSpeak = voiceEnabled && lastAssistantRef.current && voiceOutputRef.current?.hasVoices();
-        if (canSpeak) {
+        if (voiceEnabled && lastAssistantRef.current) {
           speakingRef.current = true;
           setSpeaking(true);
-          voiceOutputRef.current!.speak(lastAssistantRef.current, () => {
+          edgeTtsRef.current?.speak(lastAssistantRef.current, ttsVoice, () => {
             speakingRef.current = false;
             setSpeaking(false);
             setLastReply("");
             if (callActiveRef.current) startListening();
           });
         } else {
-          // 无 TTS 声音引擎，保留文字回复 3 秒后继续
           setTimeout(() => {
             setLastReply("");
             if (callActiveRef.current) startListening();
@@ -138,6 +141,7 @@ export function CallView({ convId }: { convId: string }) {
     callActiveRef.current = false;
     voiceInputRef.current?.stop();
     voiceOutputRef.current?.stop();
+    edgeTtsRef.current?.stop();
     router.back();
   }
 
@@ -150,6 +154,11 @@ export function CallView({ convId }: { convId: string }) {
       style={{ background: "linear-gradient(to bottom, #0a0a1a, #1a1a3a)" }}
     >
       <ParticleBackground type="sakura" count={30} />
+      {character?.avatar_url && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center" style={{ zIndex: 1 }}>
+          <img src={character.avatar_url} alt="" className="h-80 w-80 rounded-full object-cover opacity-[0.1] blur-sm" />
+        </div>
+      )}
       <div className="relative z-10 pt-12 text-center">
         <p className="text-sm text-white/50">
           {listening ? "正在听..." : speaking ? "正在说话..." : "通话中"}

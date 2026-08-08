@@ -31,6 +31,8 @@ export default function SettingsPage() {
   const logout = useAuthStore((s) => s.logout);
   const currentModel = useAuthStore((s) => s.currentModel);
   const setCurrentLlm = useAuthStore((s) => s.setCurrentLlm);
+  const ttsVoice = useAuthStore((s) => s.ttsVoice);
+  const setTtsVoice = useAuthStore((s) => s.setTtsVoice);
 
   const [providers, setProviders] = useState<ProviderOut[]>([]);
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
@@ -41,6 +43,7 @@ export default function SettingsPage() {
   const [loadingModels, setLoadingModels] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [voices, setVoices] = useState<{ id: string; label: string }[]>([]);
 
   async function loadProviders() {
     setLoadingProviders(true);
@@ -61,6 +64,9 @@ export default function SettingsPage() {
 
   useEffect(() => {
     loadProviders();
+    apiFetch<{ voices: { id: string; label: string }[]; default: string }>("/tts/voices")
+      .then((data) => setVoices(data.voices))
+      .catch(() => {});
   }, []);
 
   async function handleSaveKey() {
@@ -219,6 +225,22 @@ export default function SettingsPage() {
           </div>
         </div>
       )}
+
+      <h2 className="mb-2 text-lg font-bold">语音包</h2>
+      <div className="mb-4 rounded-lg glass p-4">
+        <p className="mb-2 text-sm text-white/50">TTS 语音包（Edge TTS 免费 Neural 语音）</p>
+        <select
+          value={ttsVoice}
+          onChange={(e) => setTtsVoice(e.target.value)}
+          className="w-full rounded-lg border border-white/10 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#f0c958]/40"
+        >
+          {voices.map((v) => (
+            <option key={v.id} value={v.id}>
+              {v.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <button
         onClick={handleLogout}

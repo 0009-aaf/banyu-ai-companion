@@ -7,7 +7,9 @@ import { streamChat } from "./stream";
 import { useAuthStore } from "@/lib/store";
 import { VoiceInput, isASRSupported } from "@/features/voice/voice-input";
 import { VoiceOutput, isTTSSupported } from "@/features/voice/voice-output";
+import { EdgeTtsPlayer } from "@/features/voice/edge-tts-player";
 import { VoiceToggle } from "@/features/voice/voice-toggle";
+import { apiFetch } from "@/lib/api";
 
 interface ChatMessage {
   id?: string;
@@ -32,11 +34,14 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   const currentProvider = useAuthStore((s) => s.currentProvider);
   const currentModel = useAuthStore((s) => s.currentModel);
   const voiceEnabled = useAuthStore((s) => s.voiceEnabled);
+  const ttsVoice = useAuthStore((s) => s.ttsVoice);
   const endRef = useRef<HTMLDivElement>(null);
   const voiceInputRef = useRef<VoiceInput | null>(null);
   const voiceOutputRef = useRef<VoiceOutput | null>(null);
+  const edgeTtsRef = useRef<EdgeTtsPlayer | null>(null);
   const msgIdRef = useRef(0);
   const lastAssistantRef = useRef<string>("");
+  const [characterAvatar, setCharacterAvatar] = useState<string | null>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,9 +54,21 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     if (isTTSSupported()) {
       voiceOutputRef.current = new VoiceOutput();
     }
+    edgeTtsRef.current = new EdgeTtsPlayer();
+    // 获取角色头像用于半透明背景
+    const cid = useAuthStore.getState().currentCharacterId;
+    if (cid) {
+      apiFetch<{ avatar_url: string | null }[]>(`/characters`)
+        .then((chars) => {
+          const char = chars.find((c) => c.avatar_url);
+          if (char) setCharacterAvatar(char.avatar_url);
+        })
+        .catch(() => {});
+    }
     return () => {
       voiceInputRef.current?.stop();
       voiceOutputRef.current?.stop();
+      edgeTtsRef.current?.stop();
     };
   }, []);
 
@@ -97,9 +114,9 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
       },
       onDone: () => {
         setStreaming(false);
-        if (voiceEnabled && lastAssistantRef.current && voiceOutputRef.current) {
+        if (voiceEnabled && lastAssistantRef.current) {
           setSpeaking(true);
-          voiceOutputRef.current.speak(lastAssistantRef.current, () => {
+          edgeTtsRef.current?.speak(lastAssistantRef.current, ttsVoice, () => {
             setSpeaking(false);
           });
         }
@@ -127,6 +144,7 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     setSpeaking(false);
     voiceInputRef.current?.stop();
     voiceOutputRef.current?.stop();
+    edgeTtsRef.current?.stop();
   }
 
   function handlePressStart() {
@@ -158,7 +176,12 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
 
   return (
     <div className="flex h-[calc(100vh-49px)] flex-col md:h-screen">
-      <div className="flex-1 overflow-y-auto px-4 py-4 md:max-w-3xl md:mx-auto md:w-full">
+      <div className="relative flex-1 overflow-y-auto px-4 py-4 md:max-w-3xl md:mx-auto md:w-full">
+        {characterAvatar && (
+          <div className="pointer-events-none fixed inset-0 flex items-center justify-center" style={{ zIndex: 0 }}>
+            <img src={characterAvatar} alt="" className="h-72 w-72 rounded-full object-cover opacity-[0.06]" />
+          </div>
+        )}
         {messages.length === 0 ? (
           <div className="mt-20 flex flex-col items-center gap-3 text-center">
             <span className="text-5xl">💬</span>
