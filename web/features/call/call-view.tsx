@@ -136,7 +136,7 @@ export function CallView({ convId }: { convId: string }) {
 
   return (
     <div
-      className="flex h-screen flex-col items-center justify-between"
+      className="flex h-screen flex-col items-center justify-between md:max-w-md md:mx-auto"
       style={{ background: "linear-gradient(to bottom, #0a0a1a, #1a1a3a)" }}
     >
       <div className="pt-12 text-center">

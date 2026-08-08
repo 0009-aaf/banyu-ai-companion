@@ -31,7 +31,7 @@ export default function NewCharacterPage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:max-w-2xl md:mx-auto">
       <h1 className="mb-4 text-xl font-bold">新建角色</h1>
       <CharacterForm onSubmit={handleSubmit} submitLabel="创建" />
     </div>

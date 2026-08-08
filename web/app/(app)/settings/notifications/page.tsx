@@ -101,7 +101,7 @@ export default function NotificationsPage() {
 
   if (!supported) {
     return (
-      <div className="p-4">
+      <div className="p-4 md:max-w-2xl md:mx-auto">
         <h1 className="mb-4 text-xl font-bold">通知设置</h1>
         <p className="text-sm text-white/50">你的浏览器不支持 Web Push 通知</p>
       </div>

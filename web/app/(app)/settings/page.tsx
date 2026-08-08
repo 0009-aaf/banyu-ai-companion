@@ -100,7 +100,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:max-w-2xl md:mx-auto">
       <h1 className="mb-4 text-xl font-bold">我的</h1>
 
       <div className="mb-4 rounded-lg glass p-4">

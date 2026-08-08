@@ -43,7 +43,7 @@ export default function ChatEntryPage() {
   }, [currentCharacterId, router]);
 
   return (
-    <div className="flex min-h-[calc(100vh-49px)] flex-col items-center justify-center gap-4 text-center">
+    <div className="flex min-h-[calc(100vh-49px)] flex-col items-center justify-center gap-4 text-center md:h-screen md:max-w-3xl md:mx-auto">
       {error ? (
         <>
           <p className="text-white/40">{error}</p>

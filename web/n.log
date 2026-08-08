@@ -1,76 +1,36 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 504ms
+✓ Ready in 527ms
 ⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
 \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
-✓ Running next.config.ts took 145ms
+✓ Running next.config.ts took 155ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET / 307 in 1246ms (next.js: 1092ms, application-code: 155ms)
- GET /chat 200 in 814ms (next.js: 717ms, application-code: 97ms)
- GET / 307 in 66ms (next.js: 7ms, application-code: 59ms)
- GET /chat 200 in 30ms (next.js: 2ms, application-code: 28ms)
- GET /register 200 in 780ms (next.js: 677ms, application-code: 103ms)
- GET /chat 200 in 392ms (next.js: 358ms, application-code: 34ms)
- GET /chat 200 in 21ms (next.js: 4ms, application-code: 17ms)
+ GET / 307 in 1513ms (next.js: 1374ms, application-code: 139ms)
+ GET /chat 200 in 592ms (next.js: 511ms, application-code: 81ms)
+ GET / 307 in 51ms (next.js: 6ms, application-code: 45ms)
+ GET /chat 200 in 29ms (next.js: 3ms, application-code: 27ms)
+ GET /register 200 in 641ms (next.js: 535ms, application-code: 105ms)
+ GET /chat 200 in 35ms (next.js: 8ms, application-code: 27ms)
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /settings 200 in 492ms (next.js: 395ms, application-code: 97ms)
- GET /chat 200 in 25ms (next.js: 6ms, application-code: 19ms)
-⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /characters 200 in 451ms (next.js: 391ms, application-code: 60ms)
- GET /chat 200 in 40ms (next.js: 5ms, application-code: 36ms)
- GET /chat/e64a5214-1dd2-4d58-aa40-3b3c941c502f 200 in 965ms (next.js: 928ms, application-code: 37ms)
- GET /chat/8838d5f0-5395-4994-8401-1722623d5dc6 200 in 983ms (next.js: 946ms, application-code: 37ms)
+ GET /settings 200 in 518ms (next.js: 453ms, application-code: 65ms)
+ GET /settings 200 in 33ms (next.js: 4ms, application-code: 30ms)
+ GET /characters 200 in 512ms (next.js: 451ms, application-code: 62ms)
+ GET /chat 200 in 37ms (next.js: 5ms, application-code: 32ms)
+ GET /chat/6cb85156-8904-421b-8dd7-bf37736e0f1e 200 in 1152ms (next.js: 1089ms, application-code: 63ms)
+ GET /chat/aa67b681-95b9-4b28-813e-95ba9d83b90d 200 in 1167ms (next.js: 1103ms, application-code: 65ms)
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /chat 200 in 111ms (next.js: 6ms, application-code: 106ms)
- GET /chat/8838d5f0-5395-4994-8401-1722623d5dc6 200 in 49ms (next.js: 25ms, application-code: 24ms)
- GET /chat/8838d5f0-5395-4994-8401-1722623d5dc6 200 in 17ms (next.js: 3ms, application-code: 13ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /call?convId=8838d5f0-5395-4994-8401-1722623d5dc6 200 in 814ms (next.js: 793ms, application-code: 21ms)
- GET /chat/8838d5f0-5395-4994-8401-1722623d5dc6 200 in 51ms (next.js: 33ms, application-code: 18ms)
- GET /diary 200 in 712ms (next.js: 564ms, application-code: 148ms)
- GET /notifications 404 in 704ms (next.js: 633ms, application-code: 70ms)
- GET /memory 404 in 108ms (next.js: 48ms, application-code: 59ms)
- GET /login 200 in 913ms (next.js: 799ms, application-code: 114ms)
- GET /register 200 in 59ms (next.js: 7ms, application-code: 52ms)
- GET /chat 200 in 29ms (next.js: 8ms, application-code: 21ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /settings 200 in 41ms (next.js: 8ms, application-code: 33ms)
- GET /chat 200 in 31ms (next.js: 3ms, application-code: 28ms)
- GET /settings/notifications 200 in 909ms (next.js: 744ms, application-code: 166ms)
- GET /chat 200 in 60ms (next.js: 10ms, application-code: 50ms)
- GET /login 200 in 56ms (next.js: 26ms, application-code: 30ms)
-⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /login 200 in 40ms (next.js: 3ms, application-code: 37ms)
- GET /settings/memory 200 in 623ms (next.js: 495ms, application-code: 128ms)
- GET /settings/notifications 200 in 46ms (next.js: 9ms, application-code: 38ms)
- GET /login 200 in 44ms (next.js: 21ms, application-code: 22ms)
-⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /login 200 in 30ms (next.js: 2ms, application-code: 28ms)
- GET /register 200 in 84ms (next.js: 6ms, application-code: 78ms)
+ GET /diary 200 in 817ms (next.js: 711ms, application-code: 106ms)
+ GET /login 200 in 990ms (next.js: 872ms, application-code: 118ms)
+ GET /diary 200 in 56ms (next.js: 8ms, application-code: 48ms)
+ GET /register 200 in 82ms (next.js: 9ms, application-code: 73ms)
  GET /chat 200 in 20ms (next.js: 4ms, application-code: 16ms)
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
  GET /settings 200 in 33ms (next.js: 5ms, application-code: 28ms)
- GET /characters 200 in 822ms (next.js: 705ms, application-code: 117ms)
- GET /login 200 in 90ms (next.js: 11ms, application-code: 79ms)
- GET /characters/new 200 in 711ms (next.js: 684ms, application-code: 27ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /chat 200 in 83ms (next.js: 3ms, application-code: 80ms)
- GET /login 200 in 47ms (next.js: 5ms, application-code: 42ms)
- GET /chat/9b071caf-45ba-455a-afd4-561a1c5ff471 200 in 527ms (next.js: 489ms, application-code: 38ms)
- GET /chat/0b9516a2-eeda-4470-8073-297fb3501f00 200 in 545ms (next.js: 528ms, application-code: 17ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /login 200 in 109ms (next.js: 79ms, application-code: 30ms)
- GET /register 200 in 570ms (next.js: 417ms, application-code: 153ms)
- GET /login 200 in 35ms (next.js: 4ms, application-code: 31ms)
- GET /chat 200 in 402ms (next.js: 375ms, application-code: 27ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /chat 200 in 83ms (next.js: 3ms, application-code: 79ms)
- GET /settings 200 in 354ms (next.js: 302ms, application-code: 53ms)
- GET /characters 200 in 40ms (next.js: 5ms, application-code: 34ms)
- GET /chat 200 in 35ms (next.js: 5ms, application-code: 30ms)
- GET /chat/9a87bf28-2044-4bb2-9fab-42b064e2b5ce 200 in 53ms (next.js: 31ms, application-code: 22ms)
- GET /chat/d26da527-08ad-4b81-ac5e-2c78db3da3a3 200 in 19ms (next.js: 3ms, application-code: 17ms)
+ GET /characters 200 in 40ms (next.js: 5ms, application-code: 35ms)
+ GET /chat 200 in 32ms (next.js: 3ms, application-code: 28ms)
+ GET /chat/d67ed17d-c4dd-4fff-ab4e-d4efb9f79fd0 200 in 70ms (next.js: 34ms, application-code: 35ms)
+ GET /chat/33b6a056-3da7-478f-b364-0699d198279c 200 in 25ms (next.js: 4ms, application-code: 21ms)
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
 [?25h

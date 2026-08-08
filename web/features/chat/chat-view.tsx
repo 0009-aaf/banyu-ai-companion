@@ -157,8 +157,8 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
   }
 
   return (
-    <div className="flex h-[calc(100vh-49px)] flex-col">
-      <div className="flex-1 overflow-y-auto px-4 py-4">
+    <div className="flex h-[calc(100vh-49px)] flex-col md:h-screen">
+      <div className="flex-1 overflow-y-auto px-4 py-4 md:max-w-3xl md:mx-auto md:w-full">
         {messages.length === 0 ? (
           <div className="mt-20 flex flex-col items-center gap-3 text-center">
             <span className="text-5xl">💬</span>
@@ -172,7 +172,7 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
         <div ref={endRef} />
       </div>
       {error && <p className="px-4 text-sm text-red-400">{error}</p>}
-      <div className="border-t border-white/10 glass p-3">
+      <div className="border-t border-white/10 glass p-3 md:max-w-3xl md:mx-auto md:w-full">
         {voiceMode ? (
           <div className="flex gap-2">
             <button

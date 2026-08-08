@@ -90,7 +90,7 @@ export default function DiaryPage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:max-w-2xl md:mx-auto">
       <h1 className="mb-4 text-xl font-bold">心情日记</h1>
 
       {error && <p className="mb-2 text-sm text-red-400">{error}</p>}

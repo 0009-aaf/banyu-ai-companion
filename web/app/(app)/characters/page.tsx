@@ -57,7 +57,7 @@ export default function CharactersPage() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:max-w-4xl md:mx-auto">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-xl font-bold">角色</h1>
         <Link
@@ -73,7 +73,7 @@ export default function CharactersPage() {
       ) : characters.length === 0 ? (
         <p className="text-center text-white/40">还没有角色</p>
       ) : (
-        <div className="space-y-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {characters.map((c) => (
             <div
               key={c.id}

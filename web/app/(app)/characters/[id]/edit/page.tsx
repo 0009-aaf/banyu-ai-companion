@@ -50,7 +50,7 @@ export default function EditCharacterPage() {
   if (!initial) return <div className="p-4 text-white/40">加载中...</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:max-w-2xl md:mx-auto">
       <h1 className="mb-4 text-xl font-bold">编辑角色</h1>
       <CharacterForm
         initial={initial}
