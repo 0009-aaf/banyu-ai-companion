@@ -19,8 +19,8 @@ class Memory(Base):
     user_id: Mapped[str] = mapped_column(
         String(36), ForeignKey("users.id"), nullable=False, index=True
     )
-    conversation_id: Mapped[str] = mapped_column(
-        String(36), ForeignKey("conversations.id"), nullable=False, index=True
+    conversation_id: Mapped[str | None] = mapped_column(
+        String(36), ForeignKey("conversations.id"), nullable=True, index=True
     )
     content: Mapped[str] = mapped_column(Text, nullable=False)
     embedding: Mapped[str | None] = mapped_column(Text, nullable=True)  # JSON: list[float]

@@ -9,7 +9,7 @@ from collections.abc import AsyncIterator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth, characters, chat, llm_config, memory, push
+from app.api import auth, characters, chat, diary, llm_config, memory, push
 from app.core.config import settings
 from app.core.database import init_db
 from app.scheduler import shutdown_scheduler, start_scheduler
@@ -40,6 +40,7 @@ app.include_router(llm_config.router, prefix="/api")
 app.include_router(chat.router, prefix="/api")
 app.include_router(push.router, prefix="/api")
 app.include_router(memory.router, prefix="/api")
+app.include_router(diary.router, prefix="/api")
 
 
 @app.get("/health")

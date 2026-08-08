@@ -1,9 +1,10 @@
-INFO:     127.0.0.1:60266 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60577 - "POST /api/auth/register HTTP/1.1" 201 Created
-INFO:     127.0.0.1:60577 - "GET /api/characters HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60577 - "GET /api/chat/conversations HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60577 - "GET /api/chat/conversations HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53952 - "POST /api/chat/conversations HTTP/1.1" 201 Created
-INFO:     127.0.0.1:60577 - "POST /api/chat/conversations HTTP/1.1" 201 Created
-INFO:     127.0.0.1:60577 - "GET /api/chat/conversations/f3717a1c-3d80-4167-8a3d-a2306ae8ddab/messages HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60577 - "GET /api/chat/conversations/f3717a1c-3d80-4167-8a3d-a2306ae8ddab/messages HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50942 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56190 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56190 - "GET /api/diary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "GET /api/diary/today HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56190 - "GET /api/diary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "GET /api/diary/today HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "POST /api/diary HTTP/1.1" 201 Created
+INFO:     127.0.0.1:56190 - "GET /api/diary/today HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "GET /api/diary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62146 - "DELETE /api/diary/7bafa3f9-c68c-44f2-9dd8-8a0017669c9c HTTP/1.1" 204 No Content
