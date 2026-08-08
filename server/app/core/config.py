@@ -32,6 +32,9 @@ class Settings(BaseSettings):
     VAPID_PUBLIC_KEY: str = ""
     VAPID_PRIVATE_KEY: str = ""  # PEM 格式，.env 中 \n 转义
 
+    # 火山引擎 TTS（015 声音克隆用，非 ARK LLM key）
+    VOLC_TTS_TOKEN: str = ""
+
     @field_validator("VAPID_PRIVATE_KEY")
     @classmethod
     def decode_pem(cls, v: str) -> str:

@@ -24,6 +24,8 @@ class Character(Base):
     name: Mapped[str] = mapped_column(String(64), nullable=False)
     persona: Mapped[str] = mapped_column(Text, nullable=False)
     avatar_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    voice_id: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    voice_status: Mapped[str] = mapped_column(String(20), default="none", nullable=False)
     voice_config: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     proactive_config: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
     is_default: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)

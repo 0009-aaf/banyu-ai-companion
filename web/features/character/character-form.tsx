@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ApiError } from "@/lib/api";
 import { ImageUpload } from "@/features/upload/image-upload";
+import { VoiceUpload, type VoiceStatus } from "@/features/upload/voice-upload";
 
 export interface CharacterFormData {
   name: string;
@@ -14,12 +15,21 @@ interface CharacterFormProps {
   initial?: Partial<CharacterFormData>;
   onSubmit: (data: CharacterFormData) => Promise<void>;
   submitLabel: string;
+  characterId?: string;
+  voiceStatus?: VoiceStatus;
 }
 
-export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormProps) {
+export function CharacterForm({
+  initial,
+  onSubmit,
+  submitLabel,
+  characterId,
+  voiceStatus: initialVoiceStatus = "none",
+}: CharacterFormProps) {
   const [name, setName] = useState(initial?.name ?? "");
   const [persona, setPersona] = useState(initial?.persona ?? "");
   const [avatarUrl, setAvatarUrl] = useState(initial?.avatar_url ?? "");
+  const [voiceStatus, setVoiceStatus] = useState<VoiceStatus>(initialVoiceStatus);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -68,6 +78,13 @@ export function CharacterForm({ initial, onSubmit, submitLabel }: CharacterFormP
         <label className="mb-1 block text-sm">角色形象</label>
         <ImageUpload value={avatarUrl} onChange={setAvatarUrl} />
       </div>
+      {characterId && (
+        <VoiceUpload
+          characterId={characterId}
+          voiceStatus={voiceStatus}
+          onStatusChange={setVoiceStatus}
+        />
+      )}
       <div>
         <label className="mb-1 block text-sm">人设（1-2000 字）</label>
         <textarea

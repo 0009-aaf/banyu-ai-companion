@@ -1,46 +1,17 @@
 ▲ Next.js 16.3.0 (webpack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.10.61:3000
-✓ Ready in 510ms
+✓ Ready in 514ms
 ⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
 \\?\D:\learning\project\web\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
-✓ Running next.config.ts took 155ms
+✓ Running next.config.ts took 154ms
   Skipping creating a lockfile at D:\learning\project\web\.next\dev\lock because we're using WASM bindings
 
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.3s (next.js: 2.1s, application-code: 141ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 79ms (next.js: 30ms, application-code: 50ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 1355ms (next.js: 1257ms, application-code: 97ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 59ms (next.js: 25ms, application-code: 34ms)
- GET / 307 in 879ms (next.js: 758ms, application-code: 120ms)
- GET /chat 200 in 395ms (next.js: 299ms, application-code: 97ms)
- GET /login 200 in 674ms (next.js: 549ms, application-code: 125ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 155ms (next.js: 37ms, application-code: 118ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 113ms (next.js: 38ms, application-code: 75ms)
- GET /chat 200 in 41ms (next.js: 5ms, application-code: 36ms)
+ GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 2.5s (next.js: 2.3s, application-code: 185ms)
+ GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 2.5s (next.js: 2.3s, application-code: 186ms)
+ GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 2.5s (next.js: 2.3s, application-code: 161ms)
+ GET /diary 200 in 513ms (next.js: 480ms, application-code: 33ms)
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /characters 200 in 531ms (next.js: 440ms, application-code: 91ms)
-⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 139ms (next.js: 32ms, application-code: 107ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 82ms (next.js: 36ms, application-code: 46ms)
- GET /chat 200 in 34ms (next.js: 5ms, application-code: 29ms)
- GET /chat/aee8d3f8-1a32-4368-a241-287610609b94 200 in 51ms (next.js: 30ms, application-code: 20ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 24ms (next.js: 5ms, application-code: 19ms)
-[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 176ms (next.js: 39ms, application-code: 137ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 102ms (next.js: 54ms, application-code: 48ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 108ms (next.js: 9ms, application-code: 99ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 211ms (next.js: 108ms, application-code: 103ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 112ms (next.js: 38ms, application-code: 74ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 109ms (next.js: 81ms, application-code: 28ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 153ms (next.js: 46ms, application-code: 107ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 149ms (next.js: 96ms, application-code: 53ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 147ms (next.js: 114ms, application-code: 32ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 229ms (next.js: 111ms, application-code: 119ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 158ms (next.js: 96ms, application-code: 62ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 153ms (next.js: 112ms, application-code: 41ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 135ms (next.js: 49ms, application-code: 86ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 96ms (next.js: 34ms, application-code: 61ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 94ms (next.js: 56ms, application-code: 38ms)
- GET /chat/93a38cff-d170-4182-acca-8cee3e81c1fc 200 in 184ms (next.js: 72ms, application-code: 112ms)
- GET /chat/da7ac685-ea66-4593-a7f3-46a8f641b0c3 200 in 147ms (next.js: 64ms, application-code: 84ms)
- GET /characters/17b11272-959d-40db-8b58-09f267796a70/edit 200 in 88ms (next.js: 52ms, application-code: 36ms)
+ GET /chat 200 in 309ms (next.js: 290ms, application-code: 19ms)
+ GET /characters 200 in 317ms (next.js: 300ms, application-code: 17ms)
+ GET /settings 200 in 463ms (next.js: 435ms, application-code: 27ms)

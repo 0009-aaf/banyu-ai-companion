@@ -10,6 +10,8 @@ class CharacterBase(BaseModel):
     name: str = Field(min_length=1, max_length=64)
     persona: str = Field(min_length=1, max_length=2000)
     avatar_url: str | None = None
+    voice_id: str | None = None
+    voice_status: str = "none"
     voice_config: dict[str, Any] | None = None
     proactive_config: dict[str, Any] | None = None
 
