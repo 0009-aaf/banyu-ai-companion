@@ -178,8 +178,8 @@ export function ChatView({ convId, initialMessages }: ChatViewProps) {
     <div className="flex h-[calc(100vh-49px)] flex-col md:h-screen">
       <div className="relative flex-1 overflow-y-auto px-4 py-4 md:max-w-3xl md:mx-auto md:w-full">
         {characterAvatar && (
-          <div className="pointer-events-none fixed inset-0 flex items-center justify-center" style={{ zIndex: 0 }}>
-            <img src={characterAvatar} alt="" className="h-72 w-72 rounded-full object-cover opacity-[0.06]" />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center" style={{ zIndex: 0 }}>
+            <img src={characterAvatar} alt="" className="h-72 w-72 rounded-full object-cover opacity-[0.1]" />
           </div>
         )}
         {messages.length === 0 ? (
