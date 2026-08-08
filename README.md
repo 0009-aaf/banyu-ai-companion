@@ -67,7 +67,7 @@ npm run dev
 
 下载 APK 安装包：
 
-👉 **[app-debug.apk](https://github.com/0009-aaf/banyu-ai-companion/releases/download/v1.0.0/app-debug.apk)**
+👉 **[banyu.apk](https://github.com/0009-aaf/banyu-ai-companion/releases/download/v1.0.0/banyu.apk)**
 
 安装步骤：
 1. 下载 APK 文件
